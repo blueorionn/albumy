@@ -1,6 +1,6 @@
 <?php ob_start(); ?>
 
-<section class="w-full py-12">
+<section class="w-full py-4">
     <div class="max-w-screen-xl mx-auto px-4">
         <div class="my-8 w-full flex flex-wrap gap-16">
             <?php foreach ($albums as $album): ?>
