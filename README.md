@@ -49,8 +49,8 @@ Access is restricted to logged-in users only. Built with **Bootstrap 5**, **Comp
    Use credentials:
 
    ```bash
-   Username: ray
-   Password: admin
+   Username: admin
+   Password: password
    ```
 
 ## License

@@ -22,10 +22,10 @@ INSERT INTO
 VALUES
     (
         '1c83c337-1061-4238-8dc7-0fd0c517fd6f',
-        'ray',
+        'administrator',
         '',
-        'ray',
-        '$2b$12$9d9nAunm7j0Vhqt8KDifDuPHHFiP1vswH9gW4L9Jg.lWhaszRibrm',
+        'admin',
+        '$2a$12$0QA8wKEc/F4yS32dbglgSeW98z06x8b4p7ySwLvybDTdWfaQ3k6ke',
         'admin',
         NOW()
     )
