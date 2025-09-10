@@ -1,4 +1,10 @@
 <?php
+// Create a new Dotenv instance. Look for .env file in root folder
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
+
+// Load the environment variables from the .env file.
+$dotenv->load();
+
 // Database configuration
 $dbHost = $_ENV['DB_HOST'];
 $dbName = $_ENV['DB_NAME'];
