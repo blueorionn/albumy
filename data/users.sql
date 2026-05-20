@@ -28,4 +28,4 @@ VALUES
         '$2a$12$0QA8wKEc/F4yS32dbglgSeW98z06x8b4p7ySwLvybDTdWfaQ3k6ke',
         'admin',
         NOW()
-    )
+    );
