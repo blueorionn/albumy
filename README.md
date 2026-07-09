@@ -1,79 +1,36 @@
-# 🎵 PHP Music App
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-![Cover Photo](public/assets/cover.jpg)
+## Getting Started
 
-A simple PHP application that displays music albums from a MySQL database.  
-Access is restricted to logged-in users only. Built with **Bootstrap 5**, **Composer**, and follows a clean MVC-like structure.
-
-⚠️ This project is created solely for fun and learning don't use it in production.
-
-## Requirements
-
-- PHP 8.0+
-- Composer
-- MySQL (or MariaDB)
-
-## Setup Instructions
-
-1. **Clone the repository**
-
-   ```bash
-   git clone https://github.com/blueorionn/album-collection.git
-   cd album-collection
-   ```
-
-2. **Install dependencies**
-
-   ```bash
-   composer install
-   ```
-
-3. **Configure environment**
-
-   ```bash
-   DB_HOST="your-database-host"
-   DB_NAME="your-database-name"
-   DB_USER="your-database-username"
-   DB_PASSWORD="your-database-password"
-   DB_PORT="your-database-port"
-   ```
-
-4. **Run the development server**
-
-   ```bash
-   php -S localhost:8000 -t public
-   ```
-
-5. **Login**
-
-   Use credentials:
-
-   ```bash
-   Username: admin
-   Password: password
-   ```
-
-## Database Fix
-
-If the project can't connect to the database it is likely that driver is there but commented out in your configuration.
-
-Steps to fix:
-
-- Locate your active `php.ini` file. (You can find its location by running `php --ini` in your terminal).
-- Open `php.ini` in a text editor and search for the following lines:
+First, run the development server:
 
 ```bash
-;extension=pdo_mysql
-;extension=mysqli
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
 ```
 
-- Remove the semicolon (;) from the front of those lines to uncomment them:
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-```bash
-extension=pdo_mysql
-extension=mysqli
-```
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-## License
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-This project is released under the MIT License.
+## Learn More
+
+To learn more about Next.js, take a look at the following resources:
+
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+
+## Deploy on Vercel
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
