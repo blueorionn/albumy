@@ -23,7 +23,9 @@ class Album(models.Model):
     """A curated collection of tracks (LP, EP, single, or compilation)."""
 
     id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False)
-    title = models.CharField(max_length=255, verbose_name=_("Album Title"), null=False, blank=False)
+    title = models.CharField(
+        max_length=255, verbose_name=_("Album Title"), null=False, blank=False
+    )
     slug = models.SlugField(
         max_length=255,
         unique=True,
@@ -37,9 +39,13 @@ class Album(models.Model):
         default=AlbumType.ALBUM,
         verbose_name=_("Release type"),
     )
-    artist = models.ForeignKey("Artist", on_delete=models.PROTECT, related_name="albums")
+    artist = models.ForeignKey(
+        "Artist", on_delete=models.PROTECT, related_name="albums"
+    )
     genres = models.ManyToManyField("Genre", blank=False, related_name="albums")
-    release_date = models.DateField(null=True, blank=True, verbose_name=_("Release date"))
+    release_date = models.DateField(
+        null=True, blank=True, verbose_name=_("Release date")
+    )
     cover = models.CharField(max_length=255, blank=True, verbose_name=_("Cover art"))
     description = models.TextField(blank=True)
     is_published = models.BooleanField(default=False, verbose_name=_("Published"))
@@ -64,7 +70,9 @@ class Artist(models.Model):
     """A music artist whose tracks appear in the catalog."""
 
     id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False)
-    name = models.CharField(max_length=255, verbose_name=_("Artist Name"), null=False, blank=False)
+    name = models.CharField(
+        max_length=255, verbose_name=_("Artist Name"), null=False, blank=False
+    )
     slug = models.SlugField(
         max_length=255,
         unique=True,
@@ -162,7 +170,9 @@ class Track(models.Model):
     """A single song: the audio file plus its catalog and licensing data."""
 
     id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False)
-    title = models.CharField(max_length=255, verbose_name=_("Track Title"), null=False, blank=False)
+    title = models.CharField(
+        max_length=255, verbose_name=_("Track Title"), null=False, blank=False
+    )
     slug = models.SlugField(
         max_length=255,
         unique=True,
@@ -170,7 +180,9 @@ class Track(models.Model):
         editable=False,
         help_text=_("Auto-generated from the title with a random suffix."),
     )
-    artist = models.ForeignKey("Artist", on_delete=models.PROTECT, related_name="tracks")
+    artist = models.ForeignKey(
+        "Artist", on_delete=models.PROTECT, related_name="tracks"
+    )
     album = models.ForeignKey(
         "Album",
         on_delete=models.SET_NULL,
@@ -186,15 +198,23 @@ class Track(models.Model):
         help_text=_("Position within the album."),
     )
     genres = models.ManyToManyField("Genre", blank=False, related_name="tracks")
-    license = models.ForeignKey("License", on_delete=models.PROTECT, related_name="tracks")
+    license = models.ForeignKey(
+        "License", on_delete=models.PROTECT, related_name="tracks"
+    )
     audio_file = models.CharField(
         max_length=255,
         null=False,
         verbose_name=_("Audio file"),
-        help_text=_("Filename only (storage key); URLs are composed from CDN settings."),
+        help_text=_(
+            "Filename only (storage key); URLs are composed from CDN settings."
+        ),
     )
-    duration_seconds = models.PositiveIntegerField(null=False, blank=False, verbose_name=_("Duration (s)"))
-    file_size = models.PositiveBigIntegerField(null=False, blank=False, verbose_name=_("File size (bytes)"))
+    duration_seconds = models.PositiveIntegerField(
+        null=False, blank=False, verbose_name=_("Duration (s)")
+    )
+    file_size = models.PositiveBigIntegerField(
+        null=False, blank=False, verbose_name=_("File size (bytes)")
+    )
     is_instrumental = models.BooleanField(default=False, verbose_name=_("Instrumental"))
     is_published = models.BooleanField(default=False, verbose_name=_("Published"))
     play_count = models.PositiveBigIntegerField(default=0, verbose_name=_("Plays"))

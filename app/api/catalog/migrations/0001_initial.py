@@ -9,102 +9,317 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Artist',
+            name="Artist",
             fields=[
-                ('id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
-                ('name', models.CharField(max_length=255, verbose_name='Artist Name')),
-                ('slug', models.SlugField(blank=True, editable=False, help_text='Auto-generated from the name with a random suffix.', max_length=255, unique=True)),
-                ('dob', models.DateField(blank=True, null=True, verbose_name='Date of Birth')),
-                ('bio', models.TextField(blank=True)),
-                ('avatar', models.CharField(blank=True, max_length=255, verbose_name='Avatar')),
+                (
+                    "id",
+                    models.UUIDField(
+                        default=uuid.uuid4,
+                        editable=False,
+                        primary_key=True,
+                        serialize=False,
+                    ),
+                ),
+                ("name", models.CharField(max_length=255, verbose_name="Artist Name")),
+                (
+                    "slug",
+                    models.SlugField(
+                        blank=True,
+                        editable=False,
+                        help_text="Auto-generated from the name with a random suffix.",
+                        max_length=255,
+                        unique=True,
+                    ),
+                ),
+                (
+                    "dob",
+                    models.DateField(
+                        blank=True, null=True, verbose_name="Date of Birth"
+                    ),
+                ),
+                ("bio", models.TextField(blank=True)),
+                (
+                    "avatar",
+                    models.CharField(blank=True, max_length=255, verbose_name="Avatar"),
+                ),
             ],
             options={
-                'verbose_name': 'artist',
-                'verbose_name_plural': 'artists',
-                'ordering': ['name'],
+                "verbose_name": "artist",
+                "verbose_name_plural": "artists",
+                "ordering": ["name"],
             },
         ),
         migrations.CreateModel(
-            name='Genre',
+            name="Genre",
             fields=[
-                ('id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
-                ('name', models.CharField(help_text='Enter the genre name (e.g., Jazz, Lofi Hip-Hop)', max_length=255, unique=True)),
-                ('slug', models.SlugField(blank=True, editable=False, help_text='Auto-generated from the name with a random suffix.', max_length=255, unique=True)),
+                (
+                    "id",
+                    models.UUIDField(
+                        default=uuid.uuid4,
+                        editable=False,
+                        primary_key=True,
+                        serialize=False,
+                    ),
+                ),
+                (
+                    "name",
+                    models.CharField(
+                        help_text="Enter the genre name (e.g., Jazz, Lofi Hip-Hop)",
+                        max_length=255,
+                        unique=True,
+                    ),
+                ),
+                (
+                    "slug",
+                    models.SlugField(
+                        blank=True,
+                        editable=False,
+                        help_text="Auto-generated from the name with a random suffix.",
+                        max_length=255,
+                        unique=True,
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'genre',
-                'verbose_name_plural': 'genres',
-                'ordering': ['name'],
+                "verbose_name": "genre",
+                "verbose_name_plural": "genres",
+                "ordering": ["name"],
             },
         ),
         migrations.CreateModel(
-            name='License',
+            name="License",
             fields=[
-                ('id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
-                ('name', models.CharField(max_length=100, unique=True, verbose_name='License Name')),
-                ('slug', models.SlugField(blank=True, editable=False, help_text='Auto-generated from the name with a random suffix.', max_length=255, unique=True)),
-                ('url', models.URLField(help_text='Canonical web page with the legal text of the license.', verbose_name='License URL')),
-                ('requires_attribution', models.BooleanField(default=True, help_text='If true, users must credit the artist when using the track.', verbose_name='Requires attribution')),
-                ('description', models.TextField(blank=True)),
+                (
+                    "id",
+                    models.UUIDField(
+                        default=uuid.uuid4,
+                        editable=False,
+                        primary_key=True,
+                        serialize=False,
+                    ),
+                ),
+                (
+                    "name",
+                    models.CharField(
+                        max_length=100, unique=True, verbose_name="License Name"
+                    ),
+                ),
+                (
+                    "slug",
+                    models.SlugField(
+                        blank=True,
+                        editable=False,
+                        help_text="Auto-generated from the name with a random suffix.",
+                        max_length=255,
+                        unique=True,
+                    ),
+                ),
+                (
+                    "url",
+                    models.URLField(
+                        help_text="Canonical web page with the legal text of the license.",
+                        verbose_name="License URL",
+                    ),
+                ),
+                (
+                    "requires_attribution",
+                    models.BooleanField(
+                        default=True,
+                        help_text="If true, users must credit the artist when using the track.",
+                        verbose_name="Requires attribution",
+                    ),
+                ),
+                ("description", models.TextField(blank=True)),
             ],
             options={
-                'verbose_name': 'license',
-                'verbose_name_plural': 'licenses',
-                'ordering': ['name'],
+                "verbose_name": "license",
+                "verbose_name_plural": "licenses",
+                "ordering": ["name"],
             },
         ),
         migrations.CreateModel(
-            name='Album',
+            name="Album",
             fields=[
-                ('id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
-                ('title', models.CharField(max_length=255, verbose_name='Album Title')),
-                ('slug', models.SlugField(blank=True, editable=False, help_text='Auto-generated from the title with a random suffix.', max_length=255, unique=True)),
-                ('album_type', models.CharField(choices=[('album', 'Album'), ('ep', 'EP'), ('single', 'Single'), ('compilation', 'Compilation')], default='album', max_length=20, verbose_name='Release type')),
-                ('release_date', models.DateField(blank=True, null=True, verbose_name='Release date')),
-                ('cover', models.CharField(blank=True, max_length=255, verbose_name='Cover art')),
-                ('description', models.TextField(blank=True)),
-                ('is_published', models.BooleanField(default=False, verbose_name='Published')),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('updated_at', models.DateTimeField(auto_now=True)),
-                ('artist', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='albums', to='catalog.artist')),
-                ('genres', models.ManyToManyField(related_name='albums', to='catalog.genre')),
+                (
+                    "id",
+                    models.UUIDField(
+                        default=uuid.uuid4,
+                        editable=False,
+                        primary_key=True,
+                        serialize=False,
+                    ),
+                ),
+                ("title", models.CharField(max_length=255, verbose_name="Album Title")),
+                (
+                    "slug",
+                    models.SlugField(
+                        blank=True,
+                        editable=False,
+                        help_text="Auto-generated from the title with a random suffix.",
+                        max_length=255,
+                        unique=True,
+                    ),
+                ),
+                (
+                    "album_type",
+                    models.CharField(
+                        choices=[
+                            ("album", "Album"),
+                            ("ep", "EP"),
+                            ("single", "Single"),
+                            ("compilation", "Compilation"),
+                        ],
+                        default="album",
+                        max_length=20,
+                        verbose_name="Release type",
+                    ),
+                ),
+                (
+                    "release_date",
+                    models.DateField(
+                        blank=True, null=True, verbose_name="Release date"
+                    ),
+                ),
+                (
+                    "cover",
+                    models.CharField(
+                        blank=True, max_length=255, verbose_name="Cover art"
+                    ),
+                ),
+                ("description", models.TextField(blank=True)),
+                (
+                    "is_published",
+                    models.BooleanField(default=False, verbose_name="Published"),
+                ),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                ("updated_at", models.DateTimeField(auto_now=True)),
+                (
+                    "artist",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.PROTECT,
+                        related_name="albums",
+                        to="catalog.artist",
+                    ),
+                ),
+                (
+                    "genres",
+                    models.ManyToManyField(related_name="albums", to="catalog.genre"),
+                ),
             ],
             options={
-                'verbose_name': 'album',
-                'verbose_name_plural': 'albums',
-                'ordering': ['title'],
+                "verbose_name": "album",
+                "verbose_name_plural": "albums",
+                "ordering": ["title"],
             },
         ),
         migrations.CreateModel(
-            name='Track',
+            name="Track",
             fields=[
-                ('id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
-                ('title', models.CharField(max_length=255, verbose_name='Track Title')),
-                ('slug', models.SlugField(blank=True, editable=False, help_text='Auto-generated from the title with a random suffix.', max_length=255, unique=True)),
-                ('track_number', models.PositiveSmallIntegerField(blank=True, help_text='Position within the album.', null=True, verbose_name='Track number')),
-                ('audio_file', models.CharField(help_text='Filename only (storage key); URLs are composed from CDN settings.', max_length=255, verbose_name='Audio file')),
-                ('duration_seconds', models.PositiveIntegerField(verbose_name='Duration (s)')),
-                ('file_size', models.PositiveBigIntegerField(verbose_name='File size (bytes)')),
-                ('is_instrumental', models.BooleanField(default=False, verbose_name='Instrumental')),
-                ('is_published', models.BooleanField(default=False, verbose_name='Published')),
-                ('play_count', models.PositiveBigIntegerField(default=0, verbose_name='Plays')),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('updated_at', models.DateTimeField(auto_now=True)),
-                ('album', models.ForeignKey(blank=True, help_text='Empty for standalone singles.', null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='tracks', to='catalog.album')),
-                ('artist', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='tracks', to='catalog.artist')),
-                ('genres', models.ManyToManyField(related_name='tracks', to='catalog.genre')),
-                ('license', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='tracks', to='catalog.license')),
+                (
+                    "id",
+                    models.UUIDField(
+                        default=uuid.uuid4,
+                        editable=False,
+                        primary_key=True,
+                        serialize=False,
+                    ),
+                ),
+                ("title", models.CharField(max_length=255, verbose_name="Track Title")),
+                (
+                    "slug",
+                    models.SlugField(
+                        blank=True,
+                        editable=False,
+                        help_text="Auto-generated from the title with a random suffix.",
+                        max_length=255,
+                        unique=True,
+                    ),
+                ),
+                (
+                    "track_number",
+                    models.PositiveSmallIntegerField(
+                        blank=True,
+                        help_text="Position within the album.",
+                        null=True,
+                        verbose_name="Track number",
+                    ),
+                ),
+                (
+                    "audio_file",
+                    models.CharField(
+                        help_text="Filename only (storage key); URLs are composed from CDN settings.",
+                        max_length=255,
+                        verbose_name="Audio file",
+                    ),
+                ),
+                (
+                    "duration_seconds",
+                    models.PositiveIntegerField(verbose_name="Duration (s)"),
+                ),
+                (
+                    "file_size",
+                    models.PositiveBigIntegerField(verbose_name="File size (bytes)"),
+                ),
+                (
+                    "is_instrumental",
+                    models.BooleanField(default=False, verbose_name="Instrumental"),
+                ),
+                (
+                    "is_published",
+                    models.BooleanField(default=False, verbose_name="Published"),
+                ),
+                (
+                    "play_count",
+                    models.PositiveBigIntegerField(default=0, verbose_name="Plays"),
+                ),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                ("updated_at", models.DateTimeField(auto_now=True)),
+                (
+                    "album",
+                    models.ForeignKey(
+                        blank=True,
+                        help_text="Empty for standalone singles.",
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        related_name="tracks",
+                        to="catalog.album",
+                    ),
+                ),
+                (
+                    "artist",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.PROTECT,
+                        related_name="tracks",
+                        to="catalog.artist",
+                    ),
+                ),
+                (
+                    "genres",
+                    models.ManyToManyField(related_name="tracks", to="catalog.genre"),
+                ),
+                (
+                    "license",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.PROTECT,
+                        related_name="tracks",
+                        to="catalog.license",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'track',
-                'verbose_name_plural': 'tracks',
-                'ordering': ['-created_at'],
-                'constraints': [models.UniqueConstraint(fields=('album', 'track_number'), name='unique_track_number_per_album')],
+                "verbose_name": "track",
+                "verbose_name_plural": "tracks",
+                "ordering": ["-created_at"],
+                "constraints": [
+                    models.UniqueConstraint(
+                        fields=("album", "track_number"),
+                        name="unique_track_number_per_album",
+                    )
+                ],
             },
         ),
     ]
