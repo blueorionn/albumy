@@ -1,0 +1,49 @@
+# Python & Django Core
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Django local settings (secrets, API keys)
+local_settings.py
+
+# Django database (Default SQLite file)
+*.sqlite3
+db.sqlite3
+
+# Django media & collected static directories
+media/
+static/
+
+# Environments & Packages
+.env
+.venv
+env/
+venv/
+ENV/
+*.bak
+*.pyc
+
+# Pipenv / Poetry / UV artifacts
+.initial-data.json
+pip-log.txt
+pip-delete-this-directory.txt
+.poetry/
+.pypy/
+
+# Testing & Code Quality
+.tox/
+.coverage
+.coverage.*
+htmlcov/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Operating System Files
+.DS_Store
+.DS_Store?
+._*
+Thumbs.db
+ehthumbs.db
