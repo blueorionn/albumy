@@ -10,28 +10,16 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.1/ref/settings/
 """
 
+import os
 from pathlib import Path
+from importlib import import_module
 
-from utils import parse_postgres_database_url
+from albumy.config.env import parse_postgres_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/6.1/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-g4$0yqrdikfr4al8nbra)14mq)^eks2i@o2ni#(!ja4pd=+29v"
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
-
-
 # Application definition
-
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -76,10 +64,7 @@ WSGI_APPLICATION = "albumy.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/6.1/ref/settings/#databases
 
-DATABASES = {
-    'default': parse_postgres_database_url()
-}
-
+DATABASES = {"default": parse_postgres_database_url()}
 
 
 # Password validation
@@ -105,28 +90,10 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/6.1/topics/i18n/
 
 LANGUAGE_CODE = "en-us"
-
 TIME_ZONE = "UTC"
-
 USE_I18N = True
-
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/6.1/howto/static-files/
-
-STATIC_URL = "static/"
-
-
-# Email
-# https://docs.djangoproject.com/en/6.1/topics/email/#topic-email-configuration
-
-MAILERS = {
-    "default": {
-        "BACKEND": "django.core.mail.backends.console.EmailBackend",
-    },
-}
 
 # Django Rest Framework Configuration
 # https://www.django-rest-framework.org/api-guide/settings/
@@ -138,3 +105,28 @@ REST_FRAMEWORK = {
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
     "PAGE_SIZE": 25,
 }
+
+
+# Setting Project Environment
+
+PROJECT_ENVIRONMENT = os.getenv("PROJECT_ENVIRONMENT", "production").lower()
+
+ENVIRONMENT_MODULES = {
+    "development": "albumy.config.development",
+    "production": "albumy.config.production",
+}
+
+try:
+    module_name = ENVIRONMENT_MODULES[PROJECT_ENVIRONMENT]
+except KeyError:
+    raise RuntimeError(
+        f"Invalid PROJECT_ENVIRONMENT: {PROJECT_ENVIRONMENT!r}. "
+        f"Expected one of: {', '.join(ENVIRONMENT_MODULES)}"
+    )
+
+environment_settings = import_module(module_name)
+
+# Import uppercase settings from the environment module
+for setting_name in dir(environment_settings):
+    if setting_name.isupper():
+        globals()[setting_name] = getattr(environment_settings, setting_name)
