@@ -81,7 +81,12 @@ class Artist(models.Model):
     )
     dob = models.DateField(null=True, blank=True, verbose_name=_("Date of Birth"))
     bio = models.TextField(blank=True)
-    avatar = models.CharField(max_length=255, blank=True, verbose_name=_("Avatar"), help_text=_("A visual icon representing artist"))
+    avatar = models.CharField(
+        max_length=255,
+        blank=True,
+        verbose_name=_("Avatar"),
+        help_text=_("A visual icon representing artist"),
+    )
 
     class Meta:
         ordering = ["name"]

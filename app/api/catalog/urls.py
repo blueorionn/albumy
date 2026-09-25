@@ -6,6 +6,6 @@ from .views import AlbumViewSet
 app_name = "catalog"
 
 router = routers.DefaultRouter()
-router.register('albums', AlbumViewSet)
+router.register("albums", AlbumViewSet)
 
 urlpatterns = router.urls

@@ -27,50 +27,27 @@ class AlbumSerializer(serializers.ModelSerializer):
             "updated_at",
         ]
 
+
 class ArtistSerializer(serializers.ModelSerializer):
     class Meta:
         model = Artist
-        fields = [
-            "id",
-            "name",
-            "slug",
-            "dob",
-            "bio",
-            "avatar"
-        ]
-        read_only_fields = [
-            "id",
-            "slug"
-        ]
+        fields = ["id", "name", "slug", "dob", "bio", "avatar"]
+        read_only_fields = ["id", "slug"]
+
 
 class GenreSerializer(serializers.ModelSerializer):
     class Meta:
         model = Genre
-        fields = [
-            "id",
-            "name",
-            "slug"
-        ]
-        read_only_fields = [
-            "id",
-            "slug"
-        ]
+        fields = ["id", "name", "slug"]
+        read_only_fields = ["id", "slug"]
+
 
 class LicenseSerializer(serializers.ModelSerializer):
     class Meta:
         model = License
-        fields = [
-            "id",
-            "name",
-            "slug",
-            "url",
-            "requires_attribution",
-            "description"
-        ]
-        read_only_fields = [
-            "id",
-            "slug"
-        ]
+        fields = ["id", "name", "slug", "url", "requires_attribution", "description"]
+        read_only_fields = ["id", "slug"]
+
 
 class TrackSerializer(serializers.ModelSerializer):
     class Meta:
@@ -91,11 +68,6 @@ class TrackSerializer(serializers.ModelSerializer):
             "is_published",
             "play_count",
             "created_at",
-            "updated_at"
+            "updated_at",
         ]
-        read_only_fields = [
-            "id",
-            "slug",
-            "created_at",
-            "updated_at"
-        ]
+        read_only_fields = ["id", "slug", "created_at", "updated_at"]
