@@ -81,7 +81,7 @@ class Artist(models.Model):
     )
     dob = models.DateField(null=True, blank=True, verbose_name=_("Date of Birth"))
     bio = models.TextField(blank=True)
-    avatar = models.CharField(max_length=255, blank=True, verbose_name=_("Avatar"))
+    avatar = models.CharField(max_length=255, blank=True, verbose_name=_("Avatar"), help_text=_("A visual icon representing artist"))
 
     class Meta:
         ordering = ["name"]
@@ -141,6 +141,8 @@ class License(models.Model):
         help_text=_("Auto-generated from the name with a random suffix."),
     )
     url = models.URLField(
+        null=True,
+        blank=True,
         verbose_name=_("License URL"),
         help_text=_("Canonical web page with the legal text of the license."),
     )
