@@ -53,10 +53,10 @@ export default function PlayerBar({ track, playing, onToggle }: PlayerBarProps) 
       <div className="player-center">
         <div className="player-controls">
           <button type="button" aria-label="Shuffle">
-            <Shuffle size={16} />
+            <Shuffle size={18} />
           </button>
           <button type="button" aria-label="Previous">
-            <SkipBack size={17} fill="currentColor" />
+            <SkipBack size={19} fill="currentColor" />
           </button>
           <button
             type="button"
@@ -65,16 +65,16 @@ export default function PlayerBar({ track, playing, onToggle }: PlayerBarProps) 
             aria-label={playing ? "Pause" : "Play"}
           >
             {playing ? (
-              <Pause size={19} fill="currentColor" />
+              <Pause size={21} fill="currentColor" />
             ) : (
-              <Play size={19} fill="currentColor" />
+              <Play size={21} fill="currentColor" />
             )}
           </button>
           <button type="button" aria-label="Next">
-            <SkipForward size={17} fill="currentColor" />
+            <SkipForward size={19} fill="currentColor" />
           </button>
           <button type="button" aria-label="Repeat">
-            <Repeat2 size={16} />
+            <Repeat2 size={20} />
           </button>
         </div>
         <div className="progress-row">
