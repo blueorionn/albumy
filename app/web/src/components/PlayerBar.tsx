@@ -4,8 +4,6 @@ import {
   ListMusic,
   Maximize2,
   Mic2,
-  Pause,
-  Play,
   Repeat2,
   Shuffle,
   SkipBack,
@@ -23,6 +21,38 @@ interface PlayerBarProps {
 }
 
 /** Player chrome — thumbnail left, controls center, sound/settings right. */
+
+/**
+ * Hand-drawn play glyph, authored so its *optical* center matches the
+ * geometric center of the viewBox: a right-pointing triangle's visual
+ * weight is its centroid, (2·base + apex)/3 — with the base at x=8 and
+ * the apex at x=20 that lands on exactly 12. Flex centering therefore
+ * looks perfectly centered, with no CSS nudging. The 2px stroke with
+ * round joins matches lucide's corner softness.
+ */
+function PlayGlyph({ size = 24 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden="true">
+      <polygon
+        points="8,4 20,12 8,20"
+        fill="currentColor"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+function PauseGlyph({ size = 24 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden="true">
+      <rect x="6" y="4" width="4" height="16" rx="1" fill="currentColor" />
+      <rect x="14" y="4" width="4" height="16" rx="1" fill="currentColor" />
+    </svg>
+  );
+}
+
 export default function PlayerBar({ track, playing, onToggle }: PlayerBarProps) {
   const [liked, setLiked] = useState(false);
 
@@ -64,11 +94,7 @@ export default function PlayerBar({ track, playing, onToggle }: PlayerBarProps) 
             onClick={onToggle}
             aria-label={playing ? "Pause" : "Play"}
           >
-            {playing ? (
-              <Pause size={21} fill="currentColor" />
-            ) : (
-              <Play size={21} fill="currentColor" />
-            )}
+            {playing ? <PauseGlyph size={23} /> : <PlayGlyph size={23} />}
           </button>
           <button type="button" aria-label="Next">
             <SkipForward size={19} fill="currentColor" />

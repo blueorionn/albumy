@@ -39,7 +39,7 @@ export default function FavouritesList({ tracks, onPlay }: FavouritesListProps) 
               <strong>{track.title}</strong>
               <span>{track.artist}</span>
             </div>
-            <Heart size={17} fill="currentColor" />
+            <Heart size={18} fill="currentColor" />
           </button>
         ))}
       </div>

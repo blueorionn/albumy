@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./App.css";
+import AlbumGrid from "./components/AlbumGrid";
 import FavouritesList from "./components/FavouritesList";
 import Hero from "./components/Hero";
 import PlayerBar from "./components/PlayerBar";
@@ -7,7 +8,7 @@ import Sidebar from "./components/Sidebar";
 import TopBar from "./components/TopBar";
 import TopGenre from "./components/TopGenre";
 import TrackGrid from "./components/TrackGrid";
-import { FAVOURITES, TRACKS } from "./data/catalog";
+import { ALBUMS, FAVOURITES, TRACKS } from "./data/catalog";
 import type { Track } from "./types";
 
 export default function App() {
@@ -28,6 +29,7 @@ export default function App() {
 
         <div className="content-scroll">
           <Hero onPlay={() => setPlaying(true)} />
+          <AlbumGrid albums={ALBUMS} />
           <TrackGrid tracks={TRACKS} onPlay={playTrack} />
 
           <div className="lower-grid">

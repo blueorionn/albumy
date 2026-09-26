@@ -13,8 +13,8 @@ export default function TrackGrid({ tracks, onPlay }: TrackGridProps) {
     <section className="section-block">
       <div className="section-heading">
         <div>
-          <p className="eyebrow">Curated for you</p>
-          <h2>Recently added</h2>
+          <p className="eyebrow">Recently added</p>
+          <h2>Tracks</h2>
         </div>
         <button type="button" className="see-all">
           See all <ArrowRight size={15} />

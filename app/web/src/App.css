@@ -4,7 +4,7 @@
   min-height: 100vh;
   /* Reserve space for the fixed sidebar and player */
   padding-left: 244px;
-  padding-bottom: 100px;
+  padding-bottom: 112px;
   background: var(--bg);
 }
 
@@ -21,7 +21,7 @@
   position: fixed;
   top: 0;
   left: 0;
-  bottom: 100px; /* stops just above the fixed player */
+  bottom: 112px; /* stops just above the fixed player */
   width: 244px;
   display: flex;
   flex-direction: column;
@@ -426,7 +426,7 @@
 
 .section-heading h2 {
   font-size: 23px;
-  letter-spacing: -0.05em;
+  letter-spacing: 0.02em;
   margin: 0;
   font-weight: 600;
 }
@@ -437,7 +437,7 @@
   gap: 7px;
   background: transparent;
   color: #9ca49c;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 700;
   padding: 4px 0;
 }
@@ -569,12 +569,21 @@
   width: 100%;
   background: transparent;
   border-radius: 8px;
-  padding: 8px;
+  padding: 10px 8px;
   text-align: left;
 }
 
 .favourite-row:hover {
   background: #1b1e1b;
+}
+
+/* Larger favourites rows: overrides the shared 12px/11px meta sizes */
+.favourite-row strong {
+  font-size: 14px;
+}
+
+.favourite-row span {
+  font-size: 12px;
 }
 
 .favourite-row div {
@@ -589,9 +598,9 @@
 }
 
 .favourite-art {
-  width: 40px;
-  height: 40px;
-  border-radius: 5px;
+  width: 48px;
+  height: 48px;
+  border-radius: 6px;
   display: block;
 }
 
@@ -670,7 +679,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  height: 100px;
+  height: 112px;
   z-index: 5;
   background: rgba(24, 26, 24, 0.96);
   backdrop-filter: blur(18px);
@@ -735,7 +744,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 20px;
+  gap: 16px;
   color: #889088;
 }
 
@@ -745,6 +754,8 @@
   display: grid;
   place-items: center;
   padding: 4px;
+  border-radius: 8px;
+  transition: color 0.15s ease, background 0.15s ease;
 }
 
 .player-controls button:hover,
@@ -752,35 +763,38 @@
   color: var(--text);
 }
 
-/* extra specificity so the solid background beats the transparent
-   .player-controls button reset above */
+/* Primary action: white circle.
+   Extra specificity keeps it winning over the transparent reset above. */
+
 .player-controls .play-button {
-  width: 34px;
-  height: 34px;
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 50%;
   background: #eef1eb;
   color: #101210;
-  transition: transform 0.15s ease, background 0.15s ease;
 }
 
 .player-controls .play-button:hover {
   background: #ffffff;
   color: #101210;
-  transform: scale(1.05);
 }
 
 .progress-row {
   display: flex;
   align-items: center;
-  gap: 10px;
-  color: #7c847b;
+  gap: 12px;
+  color: #9aa39a;
   font-size: 14px;
-  margin-top: 10px;
+  margin-top: 12px;
 }
 
 .progress-line,
 .volume-line {
-  height: 3px;
+  height: 4px;
   background: #454b44;
   border-radius: 9px;
   flex: 1;
