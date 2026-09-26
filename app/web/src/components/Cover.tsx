@@ -1,12 +1,12 @@
-import Poster from "./Poster";
+import Poster from './Poster'
 
 interface CoverProps {
-  cover: string;
-  title: string;
-  artist: string;
-  className?: string;
+  cover: string
+  title: string
+  artist: string
+  className?: string
   /** Small sizes (player thumbnail, list rows) drop the poster label. */
-  compact?: boolean;
+  compact?: boolean
 }
 
 /**
@@ -26,13 +26,18 @@ export default function Cover({
       <img
         src={cover}
         alt={`${title} cover`}
-        loading="lazy"
+        loading='lazy'
         className={className}
       />
-    );
+    )
   }
 
   return (
-    <Poster title={title} artist={artist} className={className} compact={compact} />
-  );
+    <Poster
+      title={title}
+      artist={artist}
+      className={className}
+      compact={compact}
+    />
+  )
 }

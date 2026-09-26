@@ -62,9 +62,15 @@
   background: var(--panel);
 }
 
-.brand-mark span:nth-child(1) { height: 8px; }
-.brand-mark span:nth-child(2) { height: 15px; }
-.brand-mark span:nth-child(3) { height: 11px; }
+.brand-mark span:nth-child(1) {
+  height: 8px;
+}
+.brand-mark span:nth-child(2) {
+  height: 15px;
+}
+.brand-mark span:nth-child(3) {
+  height: 11px;
+}
 
 .side-section {
   padding: 0 0 30px;
@@ -400,7 +406,7 @@
   height: 100%;
   background:
     linear-gradient(90deg, rgba(60, 71, 41, 0) 0%, rgba(48, 59, 31, 0.16) 38%),
-    url("https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=1000&q=85")
+    url('https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=1000&q=85')
       center/cover;
   mix-blend-mode: screen;
   opacity: 0.7;
@@ -461,7 +467,9 @@
   border-radius: var(--radius-md);
   padding: 10px;
   text-align: left;
-  transition: transform 0.2s, background 0.2s;
+  transition:
+    transform 0.2s,
+    background 0.2s;
 }
 
 .track-card:hover {
@@ -619,7 +627,9 @@
   overflow: hidden;
   display: flex;
   gap: 21px;
-  transition: background 0.2s ease, transform 0.2s ease;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
 }
 
 .genre-card:hover {
@@ -755,7 +765,9 @@
   place-items: center;
   padding: 4px;
   border-radius: 8px;
-  transition: color 0.15s ease, background 0.15s ease;
+  transition:
+    color 0.15s ease,
+    background 0.15s ease;
 }
 
 .player-controls button:hover,
@@ -840,7 +852,10 @@
   color: var(--muted);
   font-size: 12px;
   font-weight: 600;
-  transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+  transition:
+    color 0.15s ease,
+    border-color 0.15s ease,
+    background 0.15s ease;
 }
 
 .chip:hover {
