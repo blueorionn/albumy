@@ -8,14 +8,14 @@ import type { Album, Track } from "../types";
  */
 
 export const TRACKS: Track[] = [
-  { id: "t-1", title: "Neon Run", artist: "Neon Drift", duration: 222, cover: "" },
-  { id: "t-2", title: "Midnight Arcade", artist: "Neon Drift", duration: 258, cover: "" },
-  { id: "t-3", title: "Slow Signal", artist: "Lowlight", duration: 236, cover: "" },
-  { id: "t-4", title: "Paper Planes", artist: "Marisol Vega", duration: 201, cover: "" },
-  { id: "t-5", title: "Voltage", artist: "Kilowatt Kings", duration: 185, cover: "" },
-  { id: "t-6", title: "Dust & Tape", artist: "Lowlight", duration: 168, cover: "" },
-  { id: "t-7", title: "Rooftop Blues", artist: "Marisol Vega", duration: 242, cover: "" },
-  { id: "t-8", title: "Lace & Static", artist: "Kilowatt Kings", duration: 213, cover: "" },
+  { id: "t-1", title: "Neon Run", artist: "Neon Drift", duration: 222, cover: "", genre: "Synthwave" },
+  { id: "t-2", title: "Midnight Arcade", artist: "Neon Drift", duration: 258, cover: "", genre: "Electronic" },
+  { id: "t-3", title: "Slow Signal", artist: "Lowlight", duration: 236, cover: "", genre: "Ambient" },
+  { id: "t-4", title: "Paper Planes", artist: "Marisol Vega", duration: 201, cover: "", genre: "Pop" },
+  { id: "t-5", title: "Voltage", artist: "Kilowatt Kings", duration: 185, cover: "", genre: "Drum & Bass" },
+  { id: "t-6", title: "Dust & Tape", artist: "Lowlight", duration: 168, cover: "", genre: "Lo-Fi Hip-Hop" },
+  { id: "t-7", title: "Rooftop Blues", artist: "Marisol Vega", duration: 242, cover: "", genre: "Jazz" },
+  { id: "t-8", title: "Lace & Static", artist: "Kilowatt Kings", duration: 213, cover: "", genre: "Chill" },
 ];
 
 export const FAVOURITES: Track[] = [

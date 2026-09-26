@@ -29,4 +29,5 @@ export interface Track {
   artist: string;
   duration: number; // seconds
   cover: string; // CDN URL once the storage pipeline exists, empty otherwise
+  genre?: string; // display name in the mock; the API returns genre ids
 }

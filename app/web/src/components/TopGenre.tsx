@@ -1,13 +1,6 @@
 import { Ellipsis } from "lucide-react";
 import { TOP_GENRES } from "../data/catalog";
-
-function genreSlug(name: readonly string[]): string {
-  return name
-    .join("-")
-    .toLowerCase()
-    .replace(/&/g, "and")
-    .replace(/[^a-z0-9-]+/g, "");
-}
+import { slugify } from "../lib/format";
 
 export default function TopGenre() {
   return (
@@ -31,7 +24,7 @@ export default function TopGenre() {
             <a
               className="genre-card"
               key={genre.number}
-              href={`#/genres/${genreSlug(genre.name)}`}
+              href={`#/genres/${slugify(genre.name.join(" "))}`}
               aria-label={`Browse ${name}`}
             >
               <div className="genre-number">{genre.number}</div>

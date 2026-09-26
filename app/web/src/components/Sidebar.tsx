@@ -15,21 +15,39 @@ import { PLAYLISTS } from "../data/catalog";
 function NavItem({
   icon: Icon,
   label,
+  href,
   active = false,
 }: {
   icon: LucideIcon;
   label: string;
+  /** When absent the item renders as a no-op button (page not built yet). */
+  href?: string;
   active?: boolean;
 }) {
-  return (
-    <button type="button" className={`nav-item${active ? " active" : ""}`}>
+  const className = `nav-item${active ? " active" : ""}`;
+  const children = (
+    <>
       <Icon size={20} strokeWidth={active ? 2.4 : 1.8} />
       <span>{label}</span>
+    </>
+  );
+
+  return href ? (
+    <a className={className} href={href}>
+      {children}
+    </a>
+  ) : (
+    <button type="button" className={className}>
+      {children}
     </button>
   );
 }
 
-export default function Sidebar() {
+interface SidebarProps {
+  page: "home" | "browse";
+}
+
+export default function Sidebar({ page }: SidebarProps) {
   const [playlistsOpen, setPlaylistsOpen] = useState(true);
 
   return (
@@ -46,9 +64,14 @@ export default function Sidebar() {
       <div className="side-section">
         <p className="side-label">Discover</p>
         <nav aria-label="Discover">
-          <NavItem icon={Home} label="Home" active />
+          <NavItem icon={Home} label="Home" href="#/" active={page === "home"} />
           <NavItem icon={Search} label="Search" />
-          <NavItem icon={Compass} label="Browse" />
+          <NavItem
+            icon={Compass}
+            label="Browse"
+            href="#/browse"
+            active={page === "browse"}
+          />
         </nav>
       </div>
 

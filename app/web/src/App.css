@@ -824,6 +824,137 @@
   width: 70%;
 }
 
+/* ===== Browse page ================================================= */
+
+.genre-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 2px 0 24px;
+}
+
+.chip {
+  padding: 7px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 600;
+  transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+}
+
+.chip:hover {
+  color: var(--text);
+  border-color: #495148;
+}
+
+.chip.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-ink);
+}
+
+.track-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-bottom: 45px;
+}
+
+.track-list-head,
+.track-row {
+  display: grid;
+  grid-template-columns: 30px minmax(0, 1fr) 140px 56px;
+  align-items: center;
+  gap: 14px;
+}
+
+.track-list-head {
+  padding: 0 12px 10px;
+  border-bottom: 1px solid var(--border-soft);
+  color: var(--muted-2);
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.track-row {
+  padding: 8px 12px;
+  border-radius: 8px;
+  text-align: left;
+  transition: background 0.15s ease;
+}
+
+.track-row:hover {
+  background: #1b1e1b;
+}
+
+.track-row-index {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted-2);
+  font-size: 12px;
+}
+
+.track-row-play {
+  display: none;
+  color: var(--text);
+}
+
+.track-row:hover .track-row-num {
+  display: none;
+}
+
+.track-row:hover .track-row-play {
+  display: block;
+}
+
+.track-row-main {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.track-row-art {
+  width: 44px;
+  height: 44px;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+
+.track-row-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.track-row-meta strong {
+  font-size: 12px;
+  font-weight: 700;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.track-row-meta span {
+  color: #7c847c;
+  font-size: 11px;
+}
+
+.track-row-genre {
+  color: var(--muted-2);
+  font-size: 11px;
+}
+
+.track-row-time {
+  color: #9aa39a;
+  font-size: 12px;
+}
+
 /* ===== Responsive ================================================== */
 
 @media (max-width: 900px) {
@@ -937,6 +1068,16 @@
 
   .lower-grid {
     gap: 30px;
+  }
+
+  .track-list-head,
+  .track-row {
+    grid-template-columns: 30px minmax(0, 1fr) 56px;
+  }
+
+  .track-list-head span:nth-child(3),
+  .track-row-genre {
+    display: none;
   }
 
   .player {
