@@ -45,7 +45,12 @@ class Album(models.Model):
     release_date = models.DateField(
         null=True, blank=True, verbose_name=_("Release date")
     )
-    cover = models.CharField(max_length=255, blank=True, verbose_name=_("Cover art"))
+    cover = models.CharField(
+        max_length=255,
+        blank=True,
+        default="cover-1bs02488.jpg",
+        verbose_name=_("Cover art"),
+    )
     description = models.TextField(blank=True)
     is_published = models.BooleanField(default=False, verbose_name=_("Published"))
     created_at = models.DateTimeField(auto_now_add=True)
@@ -84,6 +89,7 @@ class Artist(models.Model):
     avatar = models.CharField(
         max_length=255,
         blank=True,
+        default="avatar-1bs02488.jpg",
         verbose_name=_("Avatar"),
         help_text=_("A visual icon representing artist"),
     )
@@ -133,11 +139,35 @@ class Genre(models.Model):
         super().save(*args, **kwargs)
 
 
+class LicenseType(models.TextChoices):
+    ALL_RIGHTS_RESERVED = "all_rights_reserved", _("All Rights Reserved")
+    PUBLIC_DOMAIN = "public_domain", _("Public Domain")
+    CC0 = "cc0", _("CC0")
+    CC_BY = "cc_by", _("Creative Commons Attribution (CC BY)")
+    CC_BY_SA = "cc_by_sa", _("Creative Commons Attribution-ShareAlike (CC BY-SA)")
+    CC_BY_NC = "cc_by_nc", _("Creative Commons Attribution-NonCommercial (CC BY-NC)")
+    CC_BY_NC_SA = "cc_by_nc_sa", _(
+        "Creative Commons Attribution-NonCommercial-ShareAlike (CC BY-NC-SA)"
+    )
+    CC_BY_ND = "cc_by_nd", _("Creative Commons Attribution-NoDerivatives (CC BY-ND)")
+    CC_BY_NC_ND = "cc_by_nc_nd", _(
+        "Creative Commons Attribution-NonCommercial-NoDerivatives (CC BY-NC-ND)"
+    )
+    ROYALTY_FREE = "royalty_free", _("Royalty-Free")
+    CUSTOM = "custom", _("Custom")
+
+
 class License(models.Model):
     """The copyright license a track is published under (e.g., CC0 1.0, CC BY 4.0)."""
 
     id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False)
-    name = models.CharField(max_length=100, unique=True, verbose_name=_("License Name"))
+    name = models.CharField(
+        max_length=100,
+        unique=True,
+        choices=LicenseType.choices,
+        default=LicenseType.ALL_RIGHTS_RESERVED,
+        verbose_name=_("License Name"),
+    )
     slug = models.SlugField(
         max_length=255,
         unique=True,
@@ -206,6 +236,12 @@ class Track(models.Model):
     genres = models.ManyToManyField("Genre", blank=False, related_name="tracks")
     license = models.ForeignKey(
         "License", on_delete=models.PROTECT, related_name="tracks"
+    )
+    cover = models.CharField(
+        max_length=255,
+        blank=True,
+        default="cover-1bs02488.jpg",
+        verbose_name=_("Cover art"),
     )
     audio_file = models.CharField(
         max_length=255,
