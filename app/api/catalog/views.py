@@ -15,7 +15,11 @@ class AlbumViewSet(viewsets.ModelViewSet):
     A simple ViewSet for viewing Albums.
     """
 
-    queryset = Album.objects.filter(is_published=True)
+    queryset = (
+        Album.objects.filter(is_published=True)
+        .select_related("artist")
+        .prefetch_related("genres")
+    )
     serializer_class = AlbumSerializer
 
 
@@ -51,5 +55,9 @@ class TrackViewSet(viewsets.ModelViewSet):
     A simple ViewSet for viewing Tracks.
     """
 
-    queryset = Track.objects.filter(is_published=True)
+    queryset = (
+        Track.objects.filter(is_published=True)
+        .select_related("artist", "album", "license")
+        .prefetch_related("genres")
+    )
     serializer_class = TrackSerializer
