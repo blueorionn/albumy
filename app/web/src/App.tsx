@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import './App.css'
 import AlbumGrid from './components/AlbumGrid'
 import BrowsePage from './components/BrowsePage'
 import FavouritesList from './components/FavouritesList'
@@ -24,20 +23,20 @@ export default function App() {
   }
 
   return (
-    <div className='app'>
+    <div className='bg-bg min-h-screen pb-[112px] pl-[244px] max-lg:pl-[190px] max-sm:pb-[150px] max-sm:pl-[66px]'>
       <Sidebar page={route.name} />
 
-      <section className='main-column'>
+      <section className='min-w-0'>
         <TopBar />
 
-        <div className='content-scroll'>
+        <div className='mx-auto w-full max-w-[1240px] px-[42px] pt-6 pb-[60px] max-sm:px-[18px] max-sm:pt-3 max-sm:pb-[38px]'>
           {route.name === 'home' ? (
             <>
               <Hero onPlay={() => setPlaying(true)} />
               <AlbumGrid albums={ALBUMS} />
               <TrackGrid tracks={TRACKS} onPlay={playTrack} />
 
-              <div className='lower-grid'>
+              <div className='mb-[45px] grid grid-cols-2 gap-11 max-lg:grid-cols-1 max-lg:gap-[38px] max-sm:gap-[30px]'>
                 <FavouritesList tracks={FAVOURITES} onPlay={playTrack} />
                 <TopGenre />
               </div>

@@ -11,6 +11,8 @@ import {
 } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 import { PLAYLISTS } from '../data/catalog'
+import { cx } from '../lib/cx'
+import { eyebrow } from '../lib/ui'
 
 function NavItem({
   icon: Icon,
@@ -24,11 +26,17 @@ function NavItem({
   href?: string
   active?: boolean
 }) {
-  const className = `nav-item${active ? ' active' : ''}`
+  const className = cx(
+    'flex w-full items-center gap-3.5 rounded-[9px] px-3 py-2.5 text-left text-[13px] font-semibold transition',
+    'max-sm:justify-center max-sm:px-0 max-sm:py-[11px]',
+    active
+      ? 'bg-[#252b21] text-accent'
+      : 'text-muted hover:bg-[#222622] hover:text-[#eef0eb]'
+  )
   const children = (
     <>
       <Icon size={20} strokeWidth={active ? 2.4 : 1.8} />
-      <span>{label}</span>
+      <span className='max-sm:hidden'>{label}</span>
     </>
   )
 
@@ -51,18 +59,21 @@ export default function Sidebar({ page }: SidebarProps) {
   const [playlistsOpen, setPlaylistsOpen] = useState(true)
 
   return (
-    <aside className='sidebar'>
-      <div className='brand'>
-        <span className='brand-mark' aria-hidden='true'>
-          <span />
-          <span />
-          <span />
+    <aside className='border-line bg-panel fixed top-0 bottom-[112px] left-0 z-10 flex w-[244px] flex-col overflow-x-hidden overflow-y-auto border-r px-[18px] pt-7 pb-[22px] max-lg:w-[190px] max-sm:w-[66px] max-sm:px-[9px] max-sm:pt-[22px]'>
+      <div className='flex items-center gap-2.5 px-3 pb-[42px] text-[19px] font-bold tracking-[-0.04em] text-[#f7f8f4] max-sm:px-2.5 max-sm:pb-[38px]'>
+        <span
+          className='bg-accent flex h-[26px] w-[26px] -rotate-[8deg] items-center justify-center gap-[3px] rounded-lg'
+          aria-hidden='true'
+        >
+          <span className='bg-panel block h-2 w-[3px] rounded-[3px]' />
+          <span className='bg-panel block h-[15px] w-[3px] rounded-[3px]' />
+          <span className='bg-panel block h-[11px] w-[3px] rounded-[3px]' />
         </span>
-        <span>albumy</span>
+        <span className='max-sm:hidden'>albumy</span>
       </div>
 
-      <div className='side-section'>
-        <p className='side-label'>Discover</p>
+      <div className='pb-[30px]'>
+        <p className={cx(eyebrow, 'mb-[13px] ml-3')}>Discover</p>
         <nav aria-label='Discover'>
           <NavItem
             icon={Home}
@@ -80,12 +91,12 @@ export default function Sidebar({ page }: SidebarProps) {
         </nav>
       </div>
 
-      <div className='side-section library-section'>
-        <div className='library-heading'>
-          <p className='side-label'>Your Library</p>
+      <div className='border-line-soft border-t pt-[27px] pb-[30px] max-sm:pt-[22px]'>
+        <div className='flex items-center justify-between'>
+          <p className={cx(eyebrow, 'mb-[13px] ml-3')}>Your Library</p>
           <button
             type='button'
-            className='icon-button'
+            className='text-muted hover:text-text inline-flex items-center justify-center p-1 transition max-sm:hidden'
             aria-label='Create playlist'
           >
             <CirclePlus size={18} />
@@ -96,10 +107,10 @@ export default function Sidebar({ page }: SidebarProps) {
           <NavItem icon={Clock3} label='Recently played' />
         </nav>
 
-        <div className='playlists'>
+        <div className='pt-[6px] max-sm:hidden'>
           <button
             type='button'
-            className='playlists-toggle'
+            className='text-muted flex w-full items-center gap-3.5 rounded-[9px] px-3 py-2.5 text-left text-[13px] font-semibold transition hover:bg-[#222622] hover:text-[#eef0eb]'
             aria-expanded={playlistsOpen}
             aria-controls='playlists-list'
             onClick={() => setPlaylistsOpen((v) => !v)}
@@ -108,17 +119,28 @@ export default function Sidebar({ page }: SidebarProps) {
             <span>Playlists</span>
             <ChevronDown
               size={16}
-              className={`playlists-chevron ${playlistsOpen ? 'open' : ''}`}
+              className={cx(
+                'text-muted-2 ml-auto transition-transform duration-200',
+                playlistsOpen ? 'rotate-0' : '-rotate-90'
+              )}
             />
           </button>
 
           {playlistsOpen && (
-            <ul className='playlists-list' id='playlists-list'>
+            <ul
+              className='m-0 flex list-none flex-col gap-0.5 pt-0.5 pl-[26px]'
+              id='playlists-list'
+            >
               {PLAYLISTS.map((playlist) => (
                 <li key={playlist.name}>
-                  <button type='button' className='playlists-item'>
-                    <span className='playlists-item-name'>{playlist.name}</span>
-                    <span className='playlists-item-count'>
+                  <button
+                    type='button'
+                    className='text-muted flex w-full items-center justify-between gap-2 rounded-lg px-3 py-[7px] text-left text-[14px] transition hover:bg-[#222622] hover:text-[#eef0eb]'
+                  >
+                    <span className='min-w-0 flex-1 truncate'>
+                      {playlist.name}
+                    </span>
+                    <span className='text-muted-2 shrink-0 text-[14px]'>
                       {playlist.tracks} tracks
                     </span>
                   </button>
@@ -129,13 +151,17 @@ export default function Sidebar({ page }: SidebarProps) {
         </div>
       </div>
 
-      <div className='sidebar-bottom'>
-        <div className='profile-dot'>G</div>
-        <div>
-          <strong>Guest</strong>
-          <span>Free account</span>
+      <div className='border-line-soft mt-auto flex items-center gap-2.5 border-t px-[11px] pt-5 text-[#ecf0ea] max-sm:justify-center max-sm:px-0 max-sm:pt-[18px]'>
+        <div className='bg-accent grid h-[30px] w-[30px] place-items-center rounded-full text-[10px] font-bold text-[#141613]'>
+          G
         </div>
-        <ChevronDown size={16} />
+        <div className='max-sm:hidden'>
+          <strong className='block text-xs'>Guest</strong>
+          <span className='text-muted-2 mt-[3px] block text-[10px]'>
+            Free account
+          </span>
+        </div>
+        <ChevronDown size={16} className='text-muted-2 ml-auto max-sm:hidden' />
       </div>
     </aside>
   )
