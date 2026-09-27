@@ -39,7 +39,7 @@ export default function BrowsePage({
     : tracks
 
   return (
-    <section className='mb-[45px]'>
+    <section className='mb-11.25'>
       <div className={sectionHeading}>
         <div>
           <p className={cx(eyebrow, 'mb-2 ml-0')}>Discover</p>
@@ -112,7 +112,7 @@ export default function BrowsePage({
                 cover={track.cover}
                 title={track.title}
                 artist={track.artist}
-                className='size-11 shrink-0 rounded-[6px]'
+                className='size-11 shrink-0 rounded-md'
                 compact
               />
               <span className='flex min-w-0 flex-col gap-1'>
