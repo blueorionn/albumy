@@ -76,7 +76,7 @@ export default function PlayerBar({
         </div>
         <button
           type='button'
-          className={`heart-button${liked ? 'liked' : ''}`}
+          className={`heart-button ${liked ? 'liked' : ''}`}
           onClick={() => setLiked((v) => !v)}
           aria-label={liked ? 'Remove from favourites' : 'Add to favourites'}
         >

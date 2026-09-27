@@ -41,7 +41,7 @@ export default function BrowsePage({
 
       <div className='genre-chips'>
         <a
-          className={`chip${activeGenre === null ? 'active' : ''}`}
+          className={`chip ${activeGenre === null ? 'active' : ''}`}
           href='#/browse'
         >
           All
@@ -49,7 +49,7 @@ export default function BrowsePage({
         {genres.map((genre) => (
           <a
             key={genre}
-            className={`chip${genre === activeGenre ? 'active' : ''}`}
+            className={`chip ${genre === activeGenre ? 'active' : ''}`}
             href={`#/genres/${slugify(genre)}`}
           >
             {genre}

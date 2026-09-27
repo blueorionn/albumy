@@ -108,7 +108,7 @@ export default function Sidebar({ page }: SidebarProps) {
             <span>Playlists</span>
             <ChevronDown
               size={16}
-              className={`playlists-chevron${playlistsOpen ? 'open' : ''}`}
+              className={`playlists-chevron ${playlistsOpen ? 'open' : ''}`}
             />
           </button>
 

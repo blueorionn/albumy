@@ -1,6 +1,5 @@
 import { Ellipsis } from 'lucide-react'
 import { TOP_GENRES } from '../data/catalog'
-import { slugify } from '../lib/format'
 
 export default function TopGenre() {
   return (
@@ -28,7 +27,7 @@ export default function TopGenre() {
             <a
               className='genre-card'
               key={genre.number}
-              href={`#/genres/${slugify(genre.name.join(' '))}`}
+              href={`#/genres/${genre.slug}`}
               aria-label={`Browse ${name}`}
             >
               <div className='genre-number'>{genre.number}</div>
