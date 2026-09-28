@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react'
 
 export type Route =
-  { name: 'home' } | { name: 'browse'; genreSlug: string | null }
+  | { name: 'home' }
+  | { name: 'search' }
+  | { name: 'browse'; genreSlug: string | null }
 
 /**
  * Tiny hash router — no dependency, and it plays nice with plain anchor
@@ -20,6 +22,7 @@ export function useHashRoute(): Route {
   const path = hash.replace(/^#\/?/, '')
 
   if (path === 'browse') return { name: 'browse', genreSlug: null }
+  if (path === 'search') return { name: 'search' }
   if (path.startsWith('genres/')) {
     return { name: 'browse', genreSlug: path.slice('genres/'.length) || null }
   }

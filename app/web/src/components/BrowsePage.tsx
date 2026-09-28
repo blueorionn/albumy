@@ -1,7 +1,7 @@
 import { Play } from 'lucide-react'
 import { formatDuration, slugify } from '../lib/format'
 import { cx } from '../lib/cx'
-import { eyebrow, sectionHeading, sectionTitle } from '../lib/ui'
+import { chip, eyebrow, sectionHeading, sectionTitle } from '../lib/ui'
 import type { Track } from '../types'
 import Cover from './Cover'
 
@@ -11,9 +11,6 @@ interface BrowsePageProps {
   genreSlug: string | null
   onPlay: (track: Track) => void
 }
-
-const chipBase =
-  'rounded-full border px-3.5 py-[7px] text-xs font-semibold transition-colors duration-150'
 
 const listGrid =
   'grid grid-cols-[30px_minmax(0,1fr)_140px_56px] items-center gap-3.5 max-sm:grid-cols-[30px_minmax(0,1fr)_56px]'
@@ -50,7 +47,7 @@ export default function BrowsePage({
       <div className='mt-0.5 mb-6 flex flex-wrap gap-2'>
         <a
           className={cx(
-            chipBase,
+            chip,
             activeGenre === null
               ? 'border-accent bg-accent text-accent-ink hover:bg-accent-hover'
               : 'border-line text-muted hover:bg-[#1b1e1b]'
@@ -63,7 +60,7 @@ export default function BrowsePage({
           <a
             key={genre}
             className={cx(
-              chipBase,
+              chip,
               genre === activeGenre
                 ? 'border-accent bg-accent text-accent-ink hover:bg-accent-hover'
                 : 'border-line text-muted hover:bg-[#1b1e1b]'

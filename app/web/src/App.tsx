@@ -3,6 +3,7 @@ import BrowsePage from './components/BrowsePage'
 import FavouritesList from './components/FavouritesList'
 import Hero from './components/Hero'
 import PlayerBar from './components/PlayerBar'
+import SearchPage from './components/SearchPage'
 import Sidebar from './components/Sidebar'
 import TopBar from './components/TopBar'
 import TopGenre from './components/TopGenre'
@@ -39,12 +40,14 @@ export default function App() {
                 <TopGenre />
               </div>
             </>
-          ) : (
+          ) : route.name === 'browse' ? (
             <BrowsePage
               tracks={TRACKS}
               genreSlug={route.genreSlug}
               onPlay={playTrack}
             />
+          ) : (
+            <SearchPage />
           )}
         </div>
       </section>

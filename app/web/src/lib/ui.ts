@@ -9,3 +9,6 @@ export const sectionTitle = 'text-[23px] font-semibold tracking-[0.02em]'
 
 export const seeAll =
   'inline-flex items-center gap-[7px] py-1 text-[13px] font-bold text-[#9ca49c] transition hover:text-text'
+
+export const chip =
+  'rounded-full border px-3.5 py-[7px] text-xs font-semibold transition-colors duration-150'

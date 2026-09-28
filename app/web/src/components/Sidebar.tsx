@@ -52,7 +52,7 @@ function NavItem({
 }
 
 interface SidebarProps {
-  page: 'home' | 'browse'
+  page: 'home' | 'browse' | 'search'
 }
 
 export default function Sidebar({ page }: SidebarProps) {
@@ -81,7 +81,12 @@ export default function Sidebar({ page }: SidebarProps) {
             href='#/'
             active={page === 'home'}
           />
-          <NavItem icon={Search} label='Search' />
+          <NavItem
+            icon={Search}
+            label='Search'
+            href='#/search'
+            active={page === 'search'}
+          />
           <NavItem
             icon={Compass}
             label='Browse'
