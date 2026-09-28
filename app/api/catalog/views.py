@@ -1,26 +1,12 @@
 from rest_framework import viewsets
 
-from .models import Album, Artist, Genre, License, Track
+from .models import Artist, Genre, License, Track
 from .serializers import (
-    AlbumSerializer,
     ArtistSerializer,
     GenreSerializer,
     LicenseSerializer,
     TrackSerializer,
 )
-
-
-class AlbumViewSet(viewsets.ModelViewSet):
-    """
-    A simple ViewSet for viewing Albums.
-    """
-
-    queryset = (
-        Album.objects.filter(is_published=True)
-        .select_related("artist")
-        .prefetch_related("genres")
-    )
-    serializer_class = AlbumSerializer
 
 
 class ArtistViewSet(viewsets.ModelViewSet):
@@ -57,7 +43,7 @@ class TrackViewSet(viewsets.ModelViewSet):
 
     queryset = (
         Track.objects.filter(is_published=True)
-        .select_related("artist", "album", "license")
+        .select_related("artist", "license")
         .prefetch_related("genres")
     )
     serializer_class = TrackSerializer

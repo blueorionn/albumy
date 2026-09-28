@@ -1,29 +1,5 @@
 from django.contrib import admin
-from .models import Album, Artist, Genre, License, Track
-
-
-class AlbumAdmin(admin.ModelAdmin):
-    list_display = ("id", "title", "artist", "is_published")
-    list_filter = ("is_published",)
-    search_fields = ("title",)
-    fieldsets = (
-        (
-            None,
-            {
-                "fields": (
-                    "title",
-                    ("artist", "album_type"),
-                    "release_date",
-                )
-            },
-        ),
-        ("Artwork & description", {"fields": ("cover", "description")}),
-        ("Genres", {"fields": ("genres",)}),
-        ("Publication", {"fields": ("is_published",)}),
-    )
-
-
-admin.site.register(Album, AlbumAdmin)
+from .models import Artist, Genre, License, Track
 
 
 class ArtistAdmin(admin.ModelAdmin):
@@ -75,8 +51,7 @@ class TrackAdmin(admin.ModelAdmin):
             {
                 "fields": (
                     "title",
-                    ("artist", "album"),
-                    ("track_number", "is_instrumental"),
+                    ("artist", "is_instrumental"),
                 )
             },
         ),
@@ -86,7 +61,11 @@ class TrackAdmin(admin.ModelAdmin):
         ),
         ("Licensing", {"fields": ("license",)}),
         ("Genres", {"fields": ("genres",)}),
-        ("Publication & stats", {"fields": ("is_published", "play_count")}),
+        ("Attribution", {"fields": ("attribution",)}),
+        (
+            "Publication & stats",
+            {"fields": ("is_published", "is_private", "play_count")},
+        ),
     )
 
 

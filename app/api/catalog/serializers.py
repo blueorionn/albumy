@@ -1,10 +1,10 @@
 from rest_framework import serializers
 
-from .models import Album, Artist, Genre, License, Track
+from .models import Artist, Genre, License, Track
 
 
 class ArtistSummarySerializer(serializers.ModelSerializer):
-    """Compact artist data nested inside album/track payloads."""
+    """Compact artist data nested inside track payloads."""
 
     class Meta:
         model = Artist
@@ -25,42 +25,6 @@ class LicenseSummarySerializer(serializers.ModelSerializer):
         fields = ["id", "name", "requires_attribution", "url"]
 
 
-class AlbumSummarySerializer(serializers.ModelSerializer):
-    """Compact album data nested inside track payloads."""
-
-    class Meta:
-        model = Album
-        fields = ["id", "title", "slug", "cover"]
-
-
-class AlbumSerializer(serializers.ModelSerializer):
-    artist = ArtistSummarySerializer(read_only=True)
-    genres = GenreSerializer(many=True, read_only=True)
-
-    class Meta:
-        model = Album
-        fields = [
-            "id",
-            "title",
-            "slug",
-            "album_type",
-            "artist",
-            "genres",
-            "release_date",
-            "cover",
-            "description",
-            "is_published",
-            "created_at",
-            "updated_at",
-        ]
-        read_only_fields = [
-            "id",
-            "slug",
-            "created_at",
-            "updated_at",
-        ]
-
-
 class ArtistSerializer(serializers.ModelSerializer):
     class Meta:
         model = Artist
@@ -77,7 +41,6 @@ class LicenseSerializer(serializers.ModelSerializer):
 
 class TrackSerializer(serializers.ModelSerializer):
     artist = ArtistSummarySerializer(read_only=True)
-    album = AlbumSummarySerializer(read_only=True)
     genres = GenreSerializer(many=True, read_only=True)
     license = LicenseSummarySerializer(read_only=True)
 
@@ -88,8 +51,6 @@ class TrackSerializer(serializers.ModelSerializer):
             "title",
             "slug",
             "artist",
-            "album",
-            "track_number",
             "genres",
             "license",
             "cover",
@@ -98,7 +59,9 @@ class TrackSerializer(serializers.ModelSerializer):
             "file_size",
             "is_instrumental",
             "is_published",
+            "is_private",
             "play_count",
+            "attribution",
             "created_at",
             "updated_at",
         ]

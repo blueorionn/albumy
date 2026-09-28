@@ -11,65 +11,6 @@ def generate_unique_slug(text: str) -> str:
     return f"{base}-{uuid.uuid4().hex[:8]}"
 
 
-class AlbumType(models.TextChoices):
-    ALBUM = "album", _("Album")
-    EP = "ep", _("EP")
-    SINGLE = "single", _("Single")
-    COMPILATION = "compilation", _("Compilation")
-
-
-class Album(models.Model):
-    """A curated collection of tracks (LP, EP, single, or compilation)."""
-
-    id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False)
-    title = models.CharField(
-        max_length=255, verbose_name=_("Album Title"), null=False, blank=False
-    )
-    slug = models.SlugField(
-        max_length=255,
-        unique=True,
-        blank=True,
-        editable=False,
-        help_text=_("Auto-generated from the title with a random suffix."),
-    )
-    album_type = models.CharField(
-        max_length=20,
-        choices=AlbumType.choices,
-        default=AlbumType.ALBUM,
-        verbose_name=_("Release type"),
-    )
-    artist = models.ForeignKey(
-        "Artist", on_delete=models.PROTECT, related_name="albums"
-    )
-    genres = models.ManyToManyField("Genre", blank=False, related_name="albums")
-    release_date = models.DateField(
-        null=True, blank=True, verbose_name=_("Release date")
-    )
-    cover = models.CharField(
-        max_length=255,
-        blank=True,
-        default="cover-1bs02488.jpg",
-        verbose_name=_("Cover art"),
-    )
-    description = models.TextField(blank=True)
-    is_published = models.BooleanField(default=False, verbose_name=_("Published"))
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    class Meta:
-        ordering = ["title"]
-        verbose_name = _("album")
-        verbose_name_plural = _("albums")
-
-    def __str__(self):
-        return self.title
-
-    def save(self, *args, **kwargs):
-        if not self.slug:
-            self.slug = generate_unique_slug(self.title)
-        super().save(*args, **kwargs)
-
-
 class Artist(models.Model):
     """A music artist whose tracks appear in the catalog."""
 
@@ -139,24 +80,6 @@ class Genre(models.Model):
         super().save(*args, **kwargs)
 
 
-class LicenseType(models.TextChoices):
-    ALL_RIGHTS_RESERVED = "all_rights_reserved", _("All Rights Reserved")
-    PUBLIC_DOMAIN = "public_domain", _("Public Domain")
-    CC0 = "cc0", _("CC0")
-    CC_BY = "cc_by", _("Creative Commons Attribution (CC BY)")
-    CC_BY_SA = "cc_by_sa", _("Creative Commons Attribution-ShareAlike (CC BY-SA)")
-    CC_BY_NC = "cc_by_nc", _("Creative Commons Attribution-NonCommercial (CC BY-NC)")
-    CC_BY_NC_SA = "cc_by_nc_sa", _(
-        "Creative Commons Attribution-NonCommercial-ShareAlike (CC BY-NC-SA)"
-    )
-    CC_BY_ND = "cc_by_nd", _("Creative Commons Attribution-NoDerivatives (CC BY-ND)")
-    CC_BY_NC_ND = "cc_by_nc_nd", _(
-        "Creative Commons Attribution-NonCommercial-NoDerivatives (CC BY-NC-ND)"
-    )
-    ROYALTY_FREE = "royalty_free", _("Royalty-Free")
-    CUSTOM = "custom", _("Custom")
-
-
 class License(models.Model):
     """The copyright license a track is published under (e.g., CC0 1.0, CC BY 4.0)."""
 
@@ -164,8 +87,6 @@ class License(models.Model):
     name = models.CharField(
         max_length=100,
         unique=True,
-        choices=LicenseType.choices,
-        default=LicenseType.ALL_RIGHTS_RESERVED,
         verbose_name=_("License Name"),
     )
     slug = models.SlugField(
@@ -219,20 +140,6 @@ class Track(models.Model):
     artist = models.ForeignKey(
         "Artist", on_delete=models.PROTECT, related_name="tracks"
     )
-    album = models.ForeignKey(
-        "Album",
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True,
-        related_name="tracks",
-        help_text=_("Empty for standalone singles."),
-    )
-    track_number = models.PositiveSmallIntegerField(
-        null=True,
-        blank=True,
-        verbose_name=_("Track number"),
-        help_text=_("Position within the album."),
-    )
     genres = models.ManyToManyField("Genre", blank=False, related_name="tracks")
     license = models.ForeignKey(
         "License", on_delete=models.PROTECT, related_name="tracks"
@@ -259,7 +166,13 @@ class Track(models.Model):
     )
     is_instrumental = models.BooleanField(default=False, verbose_name=_("Instrumental"))
     is_published = models.BooleanField(default=False, verbose_name=_("Published"))
+    is_private = models.BooleanField(default=False, verbose_name=_("Private Track"))
     play_count = models.PositiveBigIntegerField(default=0, verbose_name=_("Plays"))
+    attribution = models.TextField(
+        blank=True,
+        verbose_name=_("Attribution"),
+        help_text=_("Must credit the artist when using the track."),
+    )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -267,12 +180,6 @@ class Track(models.Model):
         ordering = ["-created_at"]
         verbose_name = _("track")
         verbose_name_plural = _("tracks")
-        constraints = [
-            models.UniqueConstraint(
-                fields=["album", "track_number"],
-                name="unique_track_number_per_album",
-            )
-        ]
 
     def __str__(self):
         return self.title
