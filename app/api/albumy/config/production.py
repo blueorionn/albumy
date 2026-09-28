@@ -11,6 +11,9 @@ ALLOWED_HOSTS = validate_hostname(
 
 SECRET_KEY = os.environ["SECRET_KEY"]
 
+# Composing media URLs requires the CDN host in production.
+AWS_CLOUDFRONT_DOMAIN = os.environ["AWS_CLOUDFRONT_DOMAIN"]
+
 SECURE_SSL_REDIRECT = True
 
 # TLS terminates at the proxy/load balancer; this header tells Django the

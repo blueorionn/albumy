@@ -95,6 +95,17 @@ USE_I18N = True
 USE_TZ = True
 
 
+# Media CDN (S3 + CloudFront)
+# Models store bare storage keys (no path); URLs are composed from these.
+AWS_CLOUDFRONT_DOMAIN = os.environ.get("AWS_CLOUDFRONT_DOMAIN", "")
+
+MEDIA_PREFIXES = {
+    "artist_avatar": "artists/covers",
+    "track_cover": "tracks/covers",
+    "track_audio": "tracks/tracks",
+}
+
+
 # Django Rest Framework Configuration
 # https://www.django-rest-framework.org/api-guide/settings/
 
