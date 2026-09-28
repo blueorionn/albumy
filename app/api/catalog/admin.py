@@ -51,7 +51,7 @@ class TrackAdmin(admin.ModelAdmin):
             {
                 "fields": (
                     "title",
-                    ("artist", "is_instrumental"),
+                    ("artist",),
                 )
             },
         ),
@@ -64,7 +64,7 @@ class TrackAdmin(admin.ModelAdmin):
         ("Attribution", {"fields": ("attribution",)}),
         (
             "Publication & stats",
-            {"fields": ("is_published", "is_private", "play_count")},
+            {"fields": ("is_published", "is_instrumental", "is_private", "play_count")},
         ),
     )
 
