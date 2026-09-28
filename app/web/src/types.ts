@@ -8,21 +8,6 @@
  * backend gains nested serializers, update these types to match.
  */
 
-export type AlbumType = 'album' | 'ep' | 'single' | 'compilation'
-
-export interface Album {
-  id: string
-  title: string
-  slug: string
-  album_type: AlbumType
-  artist: string
-  genres: string[]
-  release_date: string | null
-  cover: string // CDN URL once the storage pipeline exists, empty otherwise
-  description: string
-  is_published: boolean
-}
-
 export interface Track {
   id: string
   title: string

@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import AlbumGrid from './components/AlbumGrid'
 import BrowsePage from './components/BrowsePage'
 import FavouritesList from './components/FavouritesList'
 import Hero from './components/Hero'
@@ -8,7 +7,7 @@ import Sidebar from './components/Sidebar'
 import TopBar from './components/TopBar'
 import TopGenre from './components/TopGenre'
 import TrackGrid from './components/TrackGrid'
-import { ALBUMS, FAVOURITES, TRACKS } from './data/catalog'
+import { FAVOURITES, TRACKS } from './data/catalog'
 import { useHashRoute } from './hooks/useHashRoute'
 import type { Track } from './types'
 
@@ -33,7 +32,6 @@ export default function App() {
           {route.name === 'home' ? (
             <>
               <Hero onPlay={() => setPlaying(true)} />
-              <AlbumGrid albums={ALBUMS} />
               <TrackGrid tracks={TRACKS} onPlay={playTrack} />
 
               <div className='mb-[45px] grid grid-cols-2 gap-11 max-lg:grid-cols-1 max-lg:gap-[38px] max-sm:gap-[30px]'>
