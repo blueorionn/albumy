@@ -1,17 +1,5 @@
 from django.contrib import admin
-from .models import Artist, Genre, License, Track
-
-
-class ArtistAdmin(admin.ModelAdmin):
-    list_display = ("id", "name")
-    search_fields = ("name",)
-    fieldsets = (
-        (None, {"fields": ("name", "dob")}),
-        ("Avatar & bio", {"fields": ("avatar", "bio")}),
-    )
-
-
-admin.site.register(Artist, ArtistAdmin)
+from .models import Genre, License, Artist, Track
 
 
 class GenreAdmin(admin.ModelAdmin):
@@ -30,6 +18,18 @@ class LicenseAdmin(admin.ModelAdmin):
 
 
 admin.site.register(License, LicenseAdmin)
+
+
+class ArtistAdmin(admin.ModelAdmin):
+    list_display = ("id", "name")
+    search_fields = ("name",)
+    fieldsets = (
+        (None, {"fields": ("name", "dob")}),
+        ("Avatar & bio", {"fields": ("avatar", "bio")}),
+    )
+
+
+admin.site.register(Artist, ArtistAdmin)
 
 
 class TrackAdmin(admin.ModelAdmin):

@@ -1,14 +1,6 @@
 from rest_framework import serializers
 
-from .models import Artist, Genre, License, Track
-
-
-class ArtistSummarySerializer(serializers.ModelSerializer):
-    """Compact artist data nested inside track payloads."""
-
-    class Meta:
-        model = Artist
-        fields = ["id", "name", "slug", "avatar"]
+from .models import Genre, License, Artist, Track
 
 
 class GenreSerializer(serializers.ModelSerializer):
@@ -25,17 +17,25 @@ class LicenseSummarySerializer(serializers.ModelSerializer):
         fields = ["id", "name", "requires_attribution", "url"]
 
 
-class ArtistSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Artist
-        fields = ["id", "name", "slug", "dob", "bio", "avatar"]
-        read_only_fields = ["id", "slug"]
-
-
 class LicenseSerializer(serializers.ModelSerializer):
     class Meta:
         model = License
         fields = ["id", "name", "slug", "url", "requires_attribution", "description"]
+        read_only_fields = ["id", "slug"]
+
+
+class ArtistSummarySerializer(serializers.ModelSerializer):
+    """Compact artist data nested inside track payloads."""
+
+    class Meta:
+        model = Artist
+        fields = ["id", "name", "slug", "avatar"]
+
+
+class ArtistSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Artist
+        fields = ["id", "name", "slug", "dob", "bio", "avatar"]
         read_only_fields = ["id", "slug"]
 
 

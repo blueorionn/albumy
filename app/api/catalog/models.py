@@ -11,44 +11,6 @@ def generate_unique_slug(text: str) -> str:
     return f"{base}-{uuid.uuid4().hex[:8]}"
 
 
-class Artist(models.Model):
-    """A music artist whose tracks appear in the catalog."""
-
-    id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False)
-    name = models.CharField(
-        max_length=255, verbose_name=_("Artist Name"), null=False, blank=False
-    )
-    slug = models.SlugField(
-        max_length=255,
-        unique=True,
-        blank=True,
-        editable=False,
-        help_text=_("Auto-generated from the name with a random suffix."),
-    )
-    dob = models.DateField(null=True, blank=True, verbose_name=_("Date of Birth"))
-    bio = models.TextField(blank=True)
-    avatar = models.CharField(
-        max_length=255,
-        blank=True,
-        default="avatar-1bs02488.jpg",
-        verbose_name=_("Avatar"),
-        help_text=_("A visual icon representing artist"),
-    )
-
-    class Meta:
-        ordering = ["name"]
-        verbose_name = _("artist")
-        verbose_name_plural = _("artists")
-
-    def __str__(self):
-        return self.name
-
-    def save(self, *args, **kwargs):
-        if not self.slug:
-            self.slug = generate_unique_slug(self.name)
-        super().save(*args, **kwargs)
-
-
 class Genre(models.Model):
     """A music genre (e.g., Jazz, Lofi Hip-Hop, Drum & Bass)."""
 
@@ -113,6 +75,44 @@ class License(models.Model):
         ordering = ["name"]
         verbose_name = _("license")
         verbose_name_plural = _("licenses")
+
+    def __str__(self):
+        return self.name
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = generate_unique_slug(self.name)
+        super().save(*args, **kwargs)
+
+
+class Artist(models.Model):
+    """A music artist whose tracks appear in the catalog."""
+
+    id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False)
+    name = models.CharField(
+        max_length=255, verbose_name=_("Artist Name"), null=False, blank=False
+    )
+    slug = models.SlugField(
+        max_length=255,
+        unique=True,
+        blank=True,
+        editable=False,
+        help_text=_("Auto-generated from the name with a random suffix."),
+    )
+    dob = models.DateField(null=True, blank=True, verbose_name=_("Date of Birth"))
+    bio = models.TextField(blank=True)
+    avatar = models.CharField(
+        max_length=255,
+        blank=True,
+        default="avatar-1bs02488.jpg",
+        verbose_name=_("Avatar"),
+        help_text=_("A visual icon representing artist"),
+    )
+
+    class Meta:
+        ordering = ["name"]
+        verbose_name = _("artist")
+        verbose_name_plural = _("artists")
 
     def __str__(self):
         return self.name
