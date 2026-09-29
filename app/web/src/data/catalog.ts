@@ -97,6 +97,34 @@ export const FAVOURITES: Track[] = [
     duration: 249,
     cover: '',
   },
+  {
+    id: 'f-5',
+    title: 'Amber Skies',
+    artist: 'The Coastline',
+    duration: 228,
+    cover: '',
+  },
+  {
+    id: 'f-6',
+    title: 'Glass Corridor',
+    artist: 'Kilowatt Kings',
+    duration: 192,
+    cover: '',
+  },
+  {
+    id: 'f-7',
+    title: 'Velvet Static',
+    artist: 'Neon Drift',
+    duration: 177,
+    cover: '',
+  },
+  {
+    id: 'f-8',
+    title: 'Lisbon Rain',
+    artist: 'Marisol Vega',
+    duration: 245,
+    cover: '',
+  },
 ]
 
 export const PLAYLISTS = [

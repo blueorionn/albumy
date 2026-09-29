@@ -190,18 +190,21 @@ export default function Sidebar({ page, open, onClose }: SidebarProps) {
           </div>
         </div>
 
-        <div className='border-line-soft mt-auto flex items-center gap-2.5 border-t px-[11px] pt-5 text-[#ecf0ea]'>
+        <button
+          type='button'
+          className='border-line-soft mt-auto flex w-full cursor-pointer items-center gap-2.5 rounded-[9px] border-t px-[11px] pt-5 pb-2 text-left text-[#ecf0ea] transition hover:bg-[#222622]'
+          aria-label='Open account'
+        >
           <div className='bg-accent grid h-[30px] w-[30px] place-items-center rounded-full text-[10px] font-bold text-[#141613]'>
             G
           </div>
           <div>
             <strong className='block text-xs'>Guest</strong>
-            <span className='text-muted-2 mt-[3px] block text-[10px]'>
-              Free account
+            <span className='text-muted-2 mt-[3px] block text-[11px]'>
+              Admin
             </span>
           </div>
-          <ChevronDown size={16} className='text-muted-2 ml-auto' />
-        </div>
+        </button>
       </aside>
     </>
   )
