@@ -1,11 +1,5 @@
 /*
  * albumy global styles & design tokens.
- *
- * Tokens are declared as Tailwind v4 theme values, so they both generate
- * utilities (bg-bg, bg-panel, text-accent, text-muted, border-line, ...)
- * and stay available as plain CSS variables. Component-level styling lives
- * in Tailwind utilities inside the components; only truly global concerns
- * belong here.
  */
 
 @theme {

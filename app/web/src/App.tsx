@@ -24,7 +24,7 @@ export default function App() {
   }
 
   return (
-    <div className='bg-bg min-h-screen pb-[112px] pl-[clamp(190px,20vw,244px)] max-sm:pb-[88px] max-sm:pl-0'>
+    <div className='bg-bg min-h-screen pb-28 pl-[clamp(190px,20vw,244px)] max-sm:pb-22 max-sm:pl-0'>
       <Sidebar
         page={route.name}
         open={sidebarOpen}
@@ -34,13 +34,13 @@ export default function App() {
       <section className='min-w-0'>
         <TopBar onMenuClick={() => setSidebarOpen(true)} />
 
-        <div className='mx-auto w-full max-w-[1240px] px-[clamp(18px,4vw,42px)] pt-[clamp(12px,2vw,24px)] pb-[clamp(38px,6vw,60px)]'>
+        <div className='mx-auto w-full max-w-310 px-[clamp(18px,4vw,42px)] pt-[clamp(12px,2vw,24px)] pb-[clamp(38px,6vw,60px)]'>
           {route.name === 'home' ? (
             <>
               <Hero onPlay={() => setPlaying(true)} />
               <TrackGrid tracks={TRACKS} onPlay={playTrack} />
 
-              <div className='mb-[45px] grid grid-cols-2 gap-[clamp(30px,5vw,44px)] max-lg:grid-cols-1'>
+              <div className='mb-11.25 grid grid-cols-2 gap-[clamp(30px,5vw,44px)] max-lg:grid-cols-1'>
                 <FavouritesList tracks={FAVOURITES} onPlay={playTrack} />
                 <TopGenre />
               </div>

@@ -68,7 +68,7 @@ export default function Sidebar({ page, open, onClose }: SidebarProps) {
       {/* Mobile backdrop — desktop never shows it */}
       <div
         className={cx(
-          'fixed inset-0 z-[15] hidden bg-black/60',
+          'fixed inset-0 z-15 hidden bg-black/60',
           open && 'max-sm:block'
         )}
         onClick={onClose}
@@ -77,20 +77,20 @@ export default function Sidebar({ page, open, onClose }: SidebarProps) {
 
       <aside
         className={cx(
-          'border-line bg-panel fixed top-0 bottom-[112px] left-0 z-20 flex w-[clamp(190px,20vw,244px)] flex-col overflow-x-hidden overflow-y-auto border-r px-[18px] pt-7 pb-[22px] transition-transform duration-200',
+          'border-line bg-panel fixed top-0 bottom-28 left-0 z-20 flex w-[clamp(190px,20vw,244px)] flex-col overflow-x-hidden overflow-y-auto border-r px-4.5 pt-7 pb-5.5 transition-transform duration-200',
           // ≤639px: off-canvas drawer, toggled by the hamburger
-          'max-sm:inset-y-0 max-sm:bottom-0 max-sm:w-[244px] max-sm:shadow-2xl',
+          'max-sm:inset-y-0 max-sm:bottom-0 max-sm:w-61 max-sm:shadow-2xl',
           open ? 'max-sm:translate-x-0' : 'max-sm:-translate-x-full'
         )}
       >
-        <div className='flex items-center gap-2.5 px-3 pb-[42px] text-[19px] font-bold tracking-[-0.04em] text-[#f7f8f4]'>
+        <div className='flex items-center gap-2.5 px-3 pb-10.25 text-[19px] font-bold tracking-[-0.04em] text-[#f7f8f4]'>
           <span
-            className='bg-accent flex h-[26px] w-[26px] -rotate-[8deg] items-center justify-center gap-[3px] rounded-lg'
+            className='bg-accent flex h-6.5 w-6.5 rotate-[-8deg] items-center justify-center gap-0.75 rounded-lg'
             aria-hidden='true'
           >
-            <span className='bg-panel block h-2 w-[3px] rounded-[3px]' />
-            <span className='bg-panel block h-[15px] w-[3px] rounded-[3px]' />
-            <span className='bg-panel block h-[11px] w-[3px] rounded-[3px]' />
+            <span className='bg-panel block h-2 w-0.75 rounded-[3px]' />
+            <span className='bg-panel block h-3.75 w-0.75 rounded-[3px]' />
+            <span className='bg-panel block h-2.75 w-0.75 rounded-[3px]' />
           </span>
           <span>albumy</span>
           <button
@@ -103,8 +103,8 @@ export default function Sidebar({ page, open, onClose }: SidebarProps) {
           </button>
         </div>
 
-        <div className='pb-[30px]'>
-          <p className={cx(eyebrow, 'mb-[13px] ml-3')}>Discover</p>
+        <div className='pb-7.5'>
+          <p className={cx(eyebrow, 'mb-3.25 ml-3')}>Discover</p>
           <nav aria-label='Discover'>
             <NavItem
               icon={Home}
@@ -130,9 +130,9 @@ export default function Sidebar({ page, open, onClose }: SidebarProps) {
           </nav>
         </div>
 
-        <div className='border-line-soft border-t pt-[27px] pb-[30px]'>
+        <div className='border-line-soft border-t pt-6.75 pb-7.5'>
           <div className='flex items-center justify-between'>
-            <p className={cx(eyebrow, 'mb-[13px] ml-3')}>Your Library</p>
+            <p className={cx(eyebrow, 'mb-3.25 ml-3')}>Your Library</p>
             <button
               type='button'
               className='text-muted hover:text-text inline-flex items-center justify-center p-1 transition'
@@ -146,7 +146,7 @@ export default function Sidebar({ page, open, onClose }: SidebarProps) {
             <NavItem icon={Clock3} label='Recently played' />
           </nav>
 
-          <div className='pt-[6px]'>
+          <div className='pt-1.5'>
             <button
               type='button'
               className='text-muted flex w-full items-center gap-3.5 rounded-[9px] px-3 py-2.5 text-left text-[13px] font-semibold transition hover:bg-[#222622] hover:text-[#eef0eb]'
@@ -167,14 +167,14 @@ export default function Sidebar({ page, open, onClose }: SidebarProps) {
 
             {playlistsOpen && (
               <ul
-                className='m-0 flex list-none flex-col gap-0.5 pt-0.5 pl-[26px]'
+                className='m-0 flex list-none flex-col gap-0.5 pt-0.5 pl-6.5'
                 id='playlists-list'
               >
                 {PLAYLISTS.map((playlist) => (
                   <li key={playlist.name}>
                     <button
                       type='button'
-                      className='text-muted flex w-full items-center justify-between gap-2 rounded-lg px-3 py-[7px] text-left text-[14px] transition hover:bg-[#222622] hover:text-[#eef0eb]'
+                      className='text-muted flex w-full items-center justify-between gap-2 rounded-lg px-3 py-1.75 text-left text-[14px] transition hover:bg-[#222622] hover:text-[#eef0eb]'
                     >
                       <span className='min-w-0 flex-1 truncate'>
                         {playlist.name}
@@ -192,15 +192,15 @@ export default function Sidebar({ page, open, onClose }: SidebarProps) {
 
         <button
           type='button'
-          className='border-line-soft mt-auto flex w-full cursor-pointer items-center gap-2.5 rounded-[9px] border-t px-[11px] pt-5 pb-2 text-left text-[#ecf0ea] transition hover:bg-[#222622]'
+          className='border-line-soft mt-auto flex w-full cursor-pointer items-center gap-2.5 rounded-[9px] border-t px-2.75 pt-5 pb-2 text-left text-[#ecf0ea] transition hover:bg-[#222622]'
           aria-label='Open account'
         >
-          <div className='bg-accent grid h-[30px] w-[30px] place-items-center rounded-full text-[10px] font-bold text-[#141613]'>
+          <div className='bg-accent grid h-7.5 w-7.5 place-items-center rounded-full text-[10px] font-bold text-[#141613]'>
             G
           </div>
           <div>
             <strong className='block text-xs'>Guest</strong>
-            <span className='text-muted-2 mt-[3px] block text-[11px]'>
+            <span className='text-muted-2 mt-0.75 block text-[11px]'>
               Admin
             </span>
           </div>

@@ -2,10 +2,9 @@ import { Search, SlidersHorizontal } from 'lucide-react'
 import { cx } from '../lib/cx'
 import { eyebrow, sectionHeading, sectionTitle } from '../lib/ui'
 
-/** Search page — bare UI for now; wiring comes later. */
 export default function SearchPage() {
   return (
-    <section className='mb-[45px]'>
+    <section className='mb-11.25'>
       <div className={sectionHeading}>
         <div>
           <p className={cx(eyebrow, 'mb-2 ml-0')}>Discover</p>
@@ -13,7 +12,7 @@ export default function SearchPage() {
         </div>
       </div>
 
-      <div className='mb-10 flex max-w-[560px] items-center gap-2'>
+      <div className='mb-10 flex max-w-140 items-center gap-2'>
         <label className='relative flex-1'>
           <span className='sr-only'>Search the catalog</span>
           <Search

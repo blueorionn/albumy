@@ -69,12 +69,12 @@ export default function PlayerBar({
   return (
     <>
       <footer
-        className='bg-elevated fixed right-0 bottom-0 left-0 z-[5] grid h-[112px] grid-cols-[1fr_1.4fr_1fr] items-center gap-[clamp(10px,2vw,22px)] border-t border-[#2c302b] px-[clamp(18px,3vw,32px)] max-sm:flex max-sm:h-16 max-sm:items-center max-sm:gap-3 max-sm:py-0'
+        className='bg-elevated fixed right-0 bottom-0 left-0 z-5 grid h-28 grid-cols-[1fr_1.4fr_1fr] items-center gap-[clamp(10px,2vw,22px)] border-t border-[#2c302b] px-[clamp(18px,3vw,32px)] max-sm:flex max-sm:h-16 max-sm:items-center max-sm:gap-3 max-sm:py-0'
         aria-label='Player'
       >
         {/* Mobile: thin progress line pinned to the player's top edge */}
         <div
-          className='absolute top-0 right-0 left-0 hidden h-[3px] bg-[#454b44] max-sm:block'
+          className='absolute top-0 right-0 left-0 hidden h-0.75 bg-[#454b44] max-sm:block'
           aria-hidden='true'
         >
           <i
@@ -95,11 +95,11 @@ export default function PlayerBar({
               cover={track.cover}
               title={track.title}
               artist={track.artist}
-              className='block size-12 rounded-[6px]'
+              className='block size-12 rounded-md'
               compact
             />
           </button>
-          <div className='flex min-w-0 flex-col gap-[5px]'>
+          <div className='flex min-w-0 flex-col gap-1.25'>
             <strong className='truncate text-xs font-bold'>
               {track.title}
             </strong>
@@ -110,7 +110,7 @@ export default function PlayerBar({
           <button
             type='button'
             className={cx(
-              'ml-[7px] transition-colors',
+              'ml-1.75 transition-colors',
               liked ? 'text-accent' : 'hover:text-text text-[#7e877e]'
             )}
             onClick={() => setLiked((v) => !v)}
@@ -120,7 +120,7 @@ export default function PlayerBar({
           </button>
         </div>
 
-        <div className='w-full max-w-[500px] justify-self-center max-sm:hidden'>
+        <div className='w-full max-w-125 justify-self-center max-sm:hidden'>
           <div className='flex items-center justify-center gap-4 text-[#889088]'>
             <button type='button' className={ghostButton} aria-label='Shuffle'>
               <Shuffle size={18} />
@@ -130,7 +130,7 @@ export default function PlayerBar({
             </button>
             <button
               type='button'
-              className='flex size-[38px] items-center justify-center rounded-full bg-[#eef1eb] p-0 text-[#101210] hover:bg-white'
+              className='flex size-9.5 items-center justify-center rounded-full bg-[#eef1eb] p-0 text-[#101210] hover:bg-white'
               onClick={onToggle}
               aria-label={playing ? 'Pause' : 'Play'}
             >
@@ -157,7 +157,7 @@ export default function PlayerBar({
 
         <div className='flex items-center justify-end gap-2.5 text-[#879087] max-sm:hidden md:gap-3.5'>
           <Volume2 size={17} />
-          <div className='h-1 max-w-[75px] min-w-8 flex-1 rounded-[9px] bg-[#454b44]'>
+          <div className='h-1 max-w-18.75 min-w-8 flex-1 rounded-[9px] bg-[#454b44]'>
             <i className='bg-accent block h-full w-[70%] rounded-[inherit]' />
           </div>
           <button
@@ -182,7 +182,7 @@ export default function PlayerBar({
               cover={track.cover}
               title={track.title}
               artist={track.artist}
-              className='block size-11 shrink-0 rounded-[6px]'
+              className='block size-11 shrink-0 rounded-md'
               compact
             />
             <span className='flex min-w-0 flex-col gap-0.5'>
@@ -215,8 +215,8 @@ export default function PlayerBar({
 
       {/* Mobile expanded "Now playing" sheet */}
       {expanded && (
-        <div className='bg-bg fixed inset-0 z-30 flex flex-col px-[22px] pt-5 pb-10'>
-          <div className='mx-auto flex min-h-0 w-full max-w-[560px] flex-1 flex-col'>
+        <div className='bg-bg fixed inset-0 z-30 flex flex-col px-5.5 pt-5 pb-10'>
+          <div className='mx-auto flex min-h-0 w-full max-w-140 flex-1 flex-col'>
             <div className='flex items-center justify-between'>
               <button
                 type='button'
