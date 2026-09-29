@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 export type Route =
   | { name: 'home' }
   | { name: 'favourites' }
+  | { name: 'recent' }
   | { name: 'search' }
   | { name: 'browse'; genreSlug: string | null }
 
@@ -22,6 +23,7 @@ export function useHashRoute(): Route {
 
   const path = hash.replace(/^#\/?/, '')
 
+  if (path === 'recently-played') return { name: 'recent' }
   if (path === 'browse') return { name: 'browse', genreSlug: null }
   if (path === 'favourites') return { name: 'favourites' }
   if (path === 'search') return { name: 'search' }

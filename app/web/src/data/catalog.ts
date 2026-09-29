@@ -127,6 +127,18 @@ export const FAVOURITES: Track[] = [
   },
 ]
 
+/** Tracks played most recently (mock: recent activity across the catalog). */
+export const RECENTLY_PLAYED: Track[] = [
+  FAVOURITES[2], // High Tide
+  TRACKS[4], // Voltage
+  TRACKS[1], // Midnight Arcade
+  FAVOURITES[0], // Velvet Morning
+  TRACKS[6], // Rooftop Blues
+  TRACKS[0], // Neon Run
+  TRACKS[7], // Lace & Static
+  FAVOURITES[3], // Afterglow
+]
+
 export const PLAYLISTS = [
   { name: 'Night drive', tracks: 24 },
   { name: 'Lo-fi study', tracks: 31 },

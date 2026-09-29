@@ -54,7 +54,7 @@ function NavItem({
 }
 
 interface SidebarProps {
-  page: 'home' | 'favourites' | 'browse' | 'search'
+  page: 'home' | 'favourites' | 'recent' | 'browse' | 'search'
   /** Mobile drawer state — ignored on desktop (always visible). */
   open: boolean
   onClose: () => void
@@ -148,7 +148,12 @@ export default function Sidebar({ page, open, onClose }: SidebarProps) {
               href='#/favourites'
               active={page === 'favourites'}
             />
-            <NavItem icon={Clock3} label='Recently played' />
+            <NavItem
+              icon={Clock3}
+              label='Recently played'
+              href='#/recently-played'
+              active={page === 'recent'}
+            />
           </nav>
 
           <div className='pt-1.5'>

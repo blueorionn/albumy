@@ -2,6 +2,7 @@ import { useState } from 'react'
 import BrowsePage from './pages/BrowsePage'
 import FavouritesPage from './pages/FavouritesPage'
 import PlayerBar from './components/PlayerBar'
+import RecentlyPlayedPage from './pages/RecentlyPlayedPage'
 import SearchPage from './pages/SearchPage'
 import Sidebar from './components/Sidebar'
 import TopBar from './components/TopBar'
@@ -74,6 +75,8 @@ export default function App() {
             </>
           ) : route.name === 'favourites' ? (
             <FavouritesPage onPlay={playTrack} onPlayAll={playAll} />
+          ) : route.name === 'recent' ? (
+            <RecentlyPlayedPage onPlay={playTrack} onPlayAll={playAll} />
           ) : route.name === 'browse' ? (
             <BrowsePage genreSlug={route.genreSlug} onPlay={playTrack} />
           ) : (
