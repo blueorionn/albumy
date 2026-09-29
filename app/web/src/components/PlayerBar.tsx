@@ -21,6 +21,8 @@ interface PlayerBarProps {
   track: Track
   playing: boolean
   onToggle: () => void
+  onNext: () => void
+  onPrev: () => void
 }
 
 /**
@@ -62,6 +64,8 @@ export default function PlayerBar({
   track,
   playing,
   onToggle,
+  onNext,
+  onPrev,
 }: PlayerBarProps) {
   const [liked, setLiked] = useState(false)
   const [expanded, setExpanded] = useState(false)
@@ -125,7 +129,12 @@ export default function PlayerBar({
             <button type='button' className={ghostButton} aria-label='Shuffle'>
               <Shuffle size={18} />
             </button>
-            <button type='button' className={ghostButton} aria-label='Previous'>
+            <button
+              type='button'
+              className={ghostButton}
+              aria-label='Previous'
+              onClick={onPrev}
+            >
               <SkipBack size={19} fill='currentColor' />
             </button>
             <button
@@ -136,7 +145,12 @@ export default function PlayerBar({
             >
               {playing ? <PauseGlyph size={23} /> : <PlayGlyph size={23} />}
             </button>
-            <button type='button' className={ghostButton} aria-label='Next'>
+            <button
+              type='button'
+              className={ghostButton}
+              aria-label='Next'
+              onClick={onNext}
+            >
               <SkipForward size={19} fill='currentColor' />
             </button>
             <button type='button' className={ghostButton} aria-label='Repeat'>
@@ -303,6 +317,7 @@ export default function PlayerBar({
                 type='button'
                 className={ghostButton}
                 aria-label='Previous'
+                onClick={onPrev}
               >
                 <SkipBack size={24} fill='currentColor' />
               </button>
@@ -314,7 +329,12 @@ export default function PlayerBar({
               >
                 {playing ? <PauseGlyph size={26} /> : <PlayGlyph size={26} />}
               </button>
-              <button type='button' className={ghostButton} aria-label='Next'>
+              <button
+                type='button'
+                className={ghostButton}
+                aria-label='Next'
+                onClick={onNext}
+              >
                 <SkipForward size={24} fill='currentColor' />
               </button>
               <button type='button' className={ghostButton} aria-label='Repeat'>

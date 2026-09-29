@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import BrowsePage from './pages/BrowsePage'
+import FavouritesPage from './pages/FavouritesPage'
 import PlayerBar from './components/PlayerBar'
 import SearchPage from './pages/SearchPage'
 import Sidebar from './components/Sidebar'
@@ -12,12 +13,44 @@ import HomePage from './pages/HomePage'
 export default function App() {
   const route = useHashRoute()
   const [sidebarOpen, setSidebarOpen] = useState(false)
+  const [queue, setQueue] = useState<Track[]>(TRACKS)
+  const [queueIndex, setQueueIndex] = useState(0)
   const [current, setCurrent] = useState<Track>(TRACKS[0])
   const [playing, setPlaying] = useState(false)
 
-  const playTrack = (track: Track) => {
+  /** Play a track, optionally within a list that becomes the queue. */
+  const playTrack = (track: Track, list?: Track[]) => {
+    if (list) {
+      setQueue(list)
+      setQueueIndex(
+        Math.max(
+          0,
+          list.findIndex((t) => t.id === track.id)
+        )
+      )
+    }
     setCurrent(track)
     setPlaying(true)
+  }
+
+  /** Play a list from the top — the "Play all" action. */
+  const playAll = (list: Track[]) => {
+    setQueue(list)
+    setQueueIndex(0)
+    setCurrent(list[0])
+    setPlaying(true)
+  }
+
+  const playNext = () => {
+    const next = Math.min(queueIndex + 1, queue.length - 1)
+    setQueueIndex(next)
+    setCurrent(queue[next])
+  }
+
+  const playPrev = () => {
+    const prev = Math.max(queueIndex - 1, 0)
+    setQueueIndex(prev)
+    setCurrent(queue[prev])
   }
 
   return (
@@ -39,6 +72,8 @@ export default function App() {
                 onPlayTrack={playTrack}
               />
             </>
+          ) : route.name === 'favourites' ? (
+            <FavouritesPage onPlay={playTrack} onPlayAll={playAll} />
           ) : route.name === 'browse' ? (
             <BrowsePage genreSlug={route.genreSlug} onPlay={playTrack} />
           ) : (
@@ -51,6 +86,8 @@ export default function App() {
         track={current}
         playing={playing}
         onToggle={() => setPlaying((v) => !v)}
+        onNext={playNext}
+        onPrev={playPrev}
       />
     </div>
   )

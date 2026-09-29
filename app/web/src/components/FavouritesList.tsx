@@ -7,23 +7,28 @@ import Cover from './Cover'
 interface FavouritesListProps {
   tracks: Track[]
   onPlay: (track: Track) => void
+  /** Hide the section heading — used on the dedicated Favourites page. */
+  showHeading?: boolean
 }
 
 export default function FavouritesList({
   tracks,
   onPlay,
+  showHeading = true,
 }: FavouritesListProps) {
   return (
     <div>
-      <div className={sectionHeading}>
-        <div>
-          <p className={cx(eyebrow, 'mb-2 ml-0')}>Your collection</p>
-          <h2 className={sectionTitle}>Your favourites</h2>
+      {showHeading && (
+        <div className={sectionHeading}>
+          <div>
+            <p className={cx(eyebrow, 'mb-2 ml-0')}>Your collection</p>
+            <h2 className={sectionTitle}>Your favourites</h2>
+          </div>
+          <a className={seeAll} href='#/favourites'>
+            See all <ArrowRight size={15} />
+          </a>
         </div>
-        <button type='button' className={seeAll}>
-          See all <ArrowRight size={15} />
-        </button>
-      </div>
+      )}
 
       <div className='flex flex-col gap-0.5'>
         {tracks.map((track) => (
