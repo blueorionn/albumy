@@ -85,13 +85,20 @@ export default function PlayerBar({
 
         {/* Desktop / tablet zones */}
         <div className='flex min-w-0 items-center gap-3 max-sm:hidden'>
-          <Cover
-            cover={track.cover}
-            title={track.title}
-            artist={track.artist}
-            className='block size-12 rounded-[6px]'
-            compact
-          />
+          <button
+            type='button'
+            className='shrink-0'
+            aria-label='Expand player'
+            onClick={() => setExpanded(true)}
+          >
+            <Cover
+              cover={track.cover}
+              title={track.title}
+              artist={track.artist}
+              className='block size-12 rounded-[6px]'
+              compact
+            />
+          </button>
           <div className='flex min-w-0 flex-col gap-[5px]'>
             <strong className='truncate text-xs font-bold'>
               {track.title}
@@ -149,12 +156,6 @@ export default function PlayerBar({
         </div>
 
         <div className='flex items-center justify-end gap-2.5 text-[#879087] max-sm:hidden md:gap-3.5'>
-          <button type='button' className={ghostButton} aria-label='Lyrics'>
-            <Mic2 size={17} />
-          </button>
-          <button type='button' className={ghostButton} aria-label='Queue'>
-            <ListMusic size={17} />
-          </button>
           <Volume2 size={17} />
           <div className='h-1 max-w-[75px] min-w-8 flex-1 rounded-[9px] bg-[#454b44]'>
             <i className='bg-accent block h-full w-[70%] rounded-[inherit]' />
@@ -162,7 +163,8 @@ export default function PlayerBar({
           <button
             type='button'
             className={ghostButton}
-            aria-label='Full screen'
+            aria-label='Expand player'
+            onClick={() => setExpanded(true)}
           >
             <Maximize2 size={17} />
           </button>
@@ -213,102 +215,112 @@ export default function PlayerBar({
 
       {/* Mobile expanded "Now playing" sheet */}
       {expanded && (
-        <div className='bg-bg fixed inset-0 z-30 hidden flex-col px-[22px] pt-5 pb-10 max-sm:flex'>
-          <div className='flex items-center justify-between'>
-            <button
-              type='button'
-              className='text-muted hover:text-text grid size-9 place-items-center rounded-full transition hover:bg-[#222622]'
-              aria-label='Collapse player'
-              onClick={() => setExpanded(false)}
-            >
-              <ChevronDown size={22} />
-            </button>
-            <span className='text-muted-2 text-[10px] font-bold tracking-[0.14em] uppercase'>
-              Now playing
-            </span>
-            <div className='flex items-center gap-1'>
+        <div className='bg-bg fixed inset-0 z-30 flex flex-col px-[22px] pt-5 pb-10'>
+          <div className='mx-auto flex min-h-0 w-full max-w-[560px] flex-1 flex-col'>
+            <div className='flex items-center justify-between'>
               <button
                 type='button'
                 className='text-muted hover:text-text grid size-9 place-items-center rounded-full transition hover:bg-[#222622]'
-                aria-label='Lyrics'
+                aria-label='Collapse player'
+                onClick={() => setExpanded(false)}
               >
-                <Mic2 size={18} />
+                <ChevronDown size={22} />
               </button>
-              <button
-                type='button'
-                className='text-muted hover:text-text grid size-9 place-items-center rounded-full transition hover:bg-[#222622]'
-                aria-label='Queue'
-              >
-                <ListMusic size={18} />
-              </button>
-            </div>
-          </div>
-
-          <div className='flex flex-1 items-center justify-center py-6'>
-            <Cover
-              cover={track.cover}
-              title={track.title}
-              artist={track.artist}
-              className='aspect-square w-[min(78vw,320px)] rounded-xl'
-            />
-          </div>
-
-          <div className='flex items-center gap-3'>
-            <div className='min-w-0 flex-1'>
-              <strong className='block truncate text-lg font-bold'>
-                {track.title}
-              </strong>
-              <span className='mt-1 block truncate text-sm text-[#7c847c]'>
-                {track.artist}
+              <span className='text-muted-2 text-[10px] font-bold tracking-[0.14em] uppercase'>
+                Now playing
               </span>
+              <div className='flex items-center gap-1'>
+                <button
+                  type='button'
+                  className='text-muted hover:text-text grid size-9 place-items-center rounded-full transition hover:bg-[#222622]'
+                  aria-label='Lyrics'
+                >
+                  <Mic2 size={18} />
+                </button>
+                <button
+                  type='button'
+                  className='text-muted hover:text-text grid size-9 place-items-center rounded-full transition hover:bg-[#222622]'
+                  aria-label='Queue'
+                >
+                  <ListMusic size={18} />
+                </button>
+              </div>
             </div>
-            <button
-              type='button'
-              className={cx(
-                'grid size-9 place-items-center rounded-full transition-colors',
-                liked ? 'text-accent' : 'hover:text-text text-[#7e877e]'
-              )}
-              onClick={() => setLiked((v) => !v)}
-              aria-label={
-                liked ? 'Remove from favourites' : 'Add to favourites'
-              }
-            >
-              <Heart size={20} fill={liked ? 'currentColor' : 'none'} />
-            </button>
-          </div>
 
-          <div className='mt-6 flex items-center gap-3 text-sm text-[#9aa39a]'>
-            <span>1:24</span>
-            <div className='h-1 flex-1 rounded-[9px] bg-[#454b44]'>
-              <i
-                className='bg-accent block h-full rounded-[inherit]'
-                style={{ width: playing ? '42%' : '30%' }}
+            <div className='flex flex-1 items-center justify-center py-6'>
+              <Cover
+                cover={track.cover}
+                title={track.title}
+                artist={track.artist}
+                className='aspect-square w-[min(78vw,320px,45vh)] rounded-xl'
               />
             </div>
-            <span>{formatDuration(track.duration)}</span>
-          </div>
 
-          <div className='mt-5 flex items-center justify-center gap-6 text-[#889088]'>
-            <button type='button' className={ghostButton} aria-label='Shuffle'>
-              <Shuffle size={20} />
-            </button>
-            <button type='button' className={ghostButton} aria-label='Previous'>
-              <SkipBack size={24} fill='currentColor' />
-            </button>
-            <button
-              type='button'
-              className='flex size-14 items-center justify-center rounded-full bg-[#eef1eb] p-0 text-[#101210]'
-              onClick={onToggle}
-              aria-label={playing ? 'Pause' : 'Play'}
-            >
-              {playing ? <PauseGlyph size={26} /> : <PlayGlyph size={26} />}
-            </button>
-            <button type='button' className={ghostButton} aria-label='Next'>
-              <SkipForward size={24} fill='currentColor' />
-            </button>
-            <button type='button' className={ghostButton} aria-label='Repeat'>
-              <Repeat2 size={20} />
-            </button>
+            <div className='flex items-center gap-3'>
+              <div className='min-w-0 flex-1'>
+                <strong className='block truncate text-lg font-bold'>
+                  {track.title}
+                </strong>
+                <span className='mt-1 block truncate text-sm text-[#7c847c]'>
+                  {track.artist}
+                </span>
+              </div>
+              <button
+                type='button'
+                className={cx(
+                  'grid size-9 place-items-center rounded-full transition-colors',
+                  liked ? 'text-accent' : 'hover:text-text text-[#7e877e]'
+                )}
+                onClick={() => setLiked((v) => !v)}
+                aria-label={
+                  liked ? 'Remove from favourites' : 'Add to favourites'
+                }
+              >
+                <Heart size={20} fill={liked ? 'currentColor' : 'none'} />
+              </button>
+            </div>
+
+            <div className='mt-6 flex items-center gap-3 text-sm text-[#9aa39a]'>
+              <span>1:24</span>
+              <div className='h-1 flex-1 rounded-[9px] bg-[#454b44]'>
+                <i
+                  className='bg-accent block h-full rounded-[inherit]'
+                  style={{ width: playing ? '42%' : '30%' }}
+                />
+              </div>
+              <span>{formatDuration(track.duration)}</span>
+            </div>
+
+            <div className='mt-5 flex items-center justify-center gap-6 text-[#889088]'>
+              <button
+                type='button'
+                className={ghostButton}
+                aria-label='Shuffle'
+              >
+                <Shuffle size={20} />
+              </button>
+              <button
+                type='button'
+                className={ghostButton}
+                aria-label='Previous'
+              >
+                <SkipBack size={24} fill='currentColor' />
+              </button>
+              <button
+                type='button'
+                className='flex size-14 items-center justify-center rounded-full bg-[#eef1eb] p-0 text-[#101210]'
+                onClick={onToggle}
+                aria-label={playing ? 'Pause' : 'Play'}
+              >
+                {playing ? <PauseGlyph size={26} /> : <PlayGlyph size={26} />}
+              </button>
+              <button type='button' className={ghostButton} aria-label='Next'>
+                <SkipForward size={24} fill='currentColor' />
+              </button>
+              <button type='button' className={ghostButton} aria-label='Repeat'>
+                <Repeat2 size={20} />
+              </button>
+            </div>
           </div>
         </div>
       )}
