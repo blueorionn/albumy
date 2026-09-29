@@ -23,7 +23,7 @@ export default function TrackGrid({ tracks, onPlay }: TrackGridProps) {
         </button>
       </div>
 
-      <div className='grid grid-cols-4 gap-[18px] max-lg:grid-cols-2 max-sm:gap-[11px]'>
+      <div className='grid grid-cols-1 gap-[clamp(11px,2vw,18px)] min-[420px]:grid-cols-2 md:grid-cols-3 xl:grid-cols-4'>
         {tracks.map((track) => (
           <button
             type='button'

@@ -14,6 +14,7 @@ import type { Track } from './types'
 
 export default function App() {
   const route = useHashRoute()
+  const [sidebarOpen, setSidebarOpen] = useState(false)
   const [current, setCurrent] = useState<Track>(TRACKS[0])
   const [playing, setPlaying] = useState(false)
 
@@ -23,19 +24,23 @@ export default function App() {
   }
 
   return (
-    <div className='bg-bg min-h-screen pb-[112px] pl-[244px] max-lg:pl-[190px] max-sm:pb-[150px] max-sm:pl-[66px]'>
-      <Sidebar page={route.name} />
+    <div className='bg-bg min-h-screen pb-[112px] pl-[clamp(190px,20vw,244px)] max-sm:pb-[88px] max-sm:pl-0'>
+      <Sidebar
+        page={route.name}
+        open={sidebarOpen}
+        onClose={() => setSidebarOpen(false)}
+      />
 
       <section className='min-w-0'>
-        <TopBar />
+        <TopBar onMenuClick={() => setSidebarOpen(true)} />
 
-        <div className='mx-auto w-full max-w-[1240px] px-[42px] pt-6 pb-[60px] max-sm:px-[18px] max-sm:pt-3 max-sm:pb-[38px]'>
+        <div className='mx-auto w-full max-w-[1240px] px-[clamp(18px,4vw,42px)] pt-[clamp(12px,2vw,24px)] pb-[clamp(38px,6vw,60px)]'>
           {route.name === 'home' ? (
             <>
               <Hero onPlay={() => setPlaying(true)} />
               <TrackGrid tracks={TRACKS} onPlay={playTrack} />
 
-              <div className='mb-[45px] grid grid-cols-2 gap-11 max-lg:grid-cols-1 max-lg:gap-[38px] max-sm:gap-[30px]'>
+              <div className='mb-[45px] grid grid-cols-2 gap-[clamp(30px,5vw,44px)] max-lg:grid-cols-1'>
                 <FavouritesList tracks={FAVOURITES} onPlay={playTrack} />
                 <TopGenre />
               </div>

@@ -23,7 +23,7 @@ export default function SearchPage() {
           <input
             type='search'
             placeholder='Tracks, artists, genres…'
-            className='border-line bg-elevated text-text placeholder:text-muted-2 focus:border-accent h-12 w-full rounded-full border pr-4 pl-11 text-sm transition outline-none'
+            className='border-line bg-elevated text-text placeholder:text-muted-2 focus:border-accent h-12 w-full rounded-full border pr-4 pl-11 text-sm transition outline-none max-sm:text-base'
           />
         </label>
         <button
