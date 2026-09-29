@@ -2,11 +2,11 @@ import { Play } from 'lucide-react'
 import { formatDuration, slugify } from '../lib/format'
 import { cx } from '../lib/cx'
 import { chip, eyebrow, sectionHeading, sectionTitle } from '../lib/ui'
+import { TRACKS } from '../data/catalog'
 import type { Track } from '../types'
-import Cover from './Cover'
+import Cover from '../components/Cover'
 
 interface BrowsePageProps {
-  tracks: Track[]
   /** Active genre slug from the route, or null for all tracks. */
   genreSlug: string | null
   onPlay: (track: Track) => void
@@ -16,24 +16,20 @@ const listGrid =
   'grid grid-cols-[30px_minmax(0,1fr)_140px_56px] items-center gap-3.5 max-sm:grid-cols-[30px_minmax(0,1fr)_56px]'
 
 /** Browse page: genre chips above a numbered list of every track. */
-export default function BrowsePage({
-  tracks,
-  genreSlug,
-  onPlay,
-}: BrowsePageProps) {
+export default function BrowsePage({ genreSlug, onPlay }: BrowsePageProps) {
   const genres = [
     ...new Set(
-      tracks
-        .map((track) => track.genre)
-        .filter((genre): genre is string => Boolean(genre))
+      TRACKS.map((track) => track.genre).filter((genre): genre is string =>
+        Boolean(genre)
+      )
     ),
   ].sort((a, b) => a.localeCompare(b))
 
   const activeGenre =
     genres.find((genre) => slugify(genre) === genreSlug) ?? null
   const visible = activeGenre
-    ? tracks.filter((track) => track.genre === activeGenre)
-    : tracks
+    ? TRACKS.filter((track) => track.genre === activeGenre)
+    : TRACKS
 
   return (
     <section className='mb-11.25'>
