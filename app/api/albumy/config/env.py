@@ -41,6 +41,16 @@ def parse_postgres_database_url():
             "PASSWORD": conn.password,
             "HOST": conn.hostname,
             "PORT": conn.port,
+            "OPTIONS": {
+                "sslmode": (
+                    "disable"
+                    if os.getenv("PROJECT_ENVIRONMENT", "production").lower()
+                    == "development"
+                    else "required"
+                ),
+            },
+            "DISABLE_SERVER_SIDE_CURSORS": True,
+            "CONN_HEALTH_CHECKS": True,
         }
     except ValueError:
         raise
