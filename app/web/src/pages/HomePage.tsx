@@ -7,17 +7,16 @@ import { useTracks } from '../hooks/useTracks'
 import type { Track } from '../types'
 
 interface HomePageProps {
-  onPlayHero: () => void
   onPlayTrack: (track: Track) => void
 }
 
-export default function HomePage({ onPlayHero, onPlayTrack }: HomePageProps) {
+export default function HomePage({ onPlayTrack }: HomePageProps) {
   const { tracks, loading, error } = useTracks()
   const MAX_TRACKS_ON_HOME_PAGE = 8
 
   return (
     <>
-      <Hero onPlay={onPlayHero} />
+      <Hero onPlay={() => tracks[0] && onPlayTrack(tracks[0])} />
 
       {loading ? (
         <p className='text-muted-2 mb-11.25 text-sm'>Loading tracks…</p>

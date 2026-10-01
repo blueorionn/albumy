@@ -14,6 +14,7 @@ export const TRACKS: Track[] = [
     artist: 'Neon Drift',
     duration: 222,
     cover: '',
+    audioUrl: null,
     genre: 'Synthwave',
   },
   {
@@ -22,6 +23,7 @@ export const TRACKS: Track[] = [
     artist: 'Neon Drift',
     duration: 258,
     cover: '',
+    audioUrl: null,
     genre: 'Electronic',
   },
   {
@@ -30,6 +32,7 @@ export const TRACKS: Track[] = [
     artist: 'Lowlight',
     duration: 236,
     cover: '',
+    audioUrl: null,
     genre: 'Ambient',
   },
   {
@@ -38,6 +41,7 @@ export const TRACKS: Track[] = [
     artist: 'Marisol Vega',
     duration: 201,
     cover: '',
+    audioUrl: null,
     genre: 'Pop',
   },
   {
@@ -46,6 +50,7 @@ export const TRACKS: Track[] = [
     artist: 'Kilowatt Kings',
     duration: 185,
     cover: '',
+    audioUrl: null,
     genre: 'Drum & Bass',
   },
   {
@@ -54,6 +59,7 @@ export const TRACKS: Track[] = [
     artist: 'Lowlight',
     duration: 168,
     cover: '',
+    audioUrl: null,
     genre: 'Lo-Fi Hip-Hop',
   },
   {
@@ -62,6 +68,7 @@ export const TRACKS: Track[] = [
     artist: 'Marisol Vega',
     duration: 242,
     cover: '',
+    audioUrl: null,
     genre: 'Jazz',
   },
   {
@@ -70,6 +77,7 @@ export const TRACKS: Track[] = [
     artist: 'Kilowatt Kings',
     duration: 213,
     cover: '',
+    audioUrl: null,
     genre: 'Chill',
   },
 ]
@@ -81,14 +89,23 @@ export const FAVOURITES: Track[] = [
     artist: 'Lowlight',
     duration: 214,
     cover: '',
+    audioUrl: null,
   },
-  { id: 'f-2', title: 'Bloom', artist: 'Neon Drift', duration: 195, cover: '' },
+  {
+    id: 'f-2',
+    title: 'Bloom',
+    artist: 'Neon Drift',
+    duration: 195,
+    cover: '',
+    audioUrl: null,
+  },
   {
     id: 'f-3',
     title: 'High Tide',
     artist: 'The Coastline',
     duration: 227,
     cover: '',
+    audioUrl: null,
   },
   {
     id: 'f-4',
@@ -96,6 +113,7 @@ export const FAVOURITES: Track[] = [
     artist: 'Marisol Vega',
     duration: 249,
     cover: '',
+    audioUrl: null,
   },
   {
     id: 'f-5',
@@ -103,6 +121,7 @@ export const FAVOURITES: Track[] = [
     artist: 'The Coastline',
     duration: 228,
     cover: '',
+    audioUrl: null,
   },
   {
     id: 'f-6',
@@ -110,6 +129,7 @@ export const FAVOURITES: Track[] = [
     artist: 'Kilowatt Kings',
     duration: 192,
     cover: '',
+    audioUrl: null,
   },
   {
     id: 'f-7',
@@ -117,6 +137,7 @@ export const FAVOURITES: Track[] = [
     artist: 'Neon Drift',
     duration: 177,
     cover: '',
+    audioUrl: null,
   },
   {
     id: 'f-8',
@@ -124,6 +145,7 @@ export const FAVOURITES: Track[] = [
     artist: 'Marisol Vega',
     duration: 245,
     cover: '',
+    audioUrl: null,
   },
 ]
 

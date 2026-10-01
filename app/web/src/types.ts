@@ -42,6 +42,7 @@ export interface Track {
   title: string
   artist: string
   artistAvatar?: string // CDN URL; empty → generated fallback
+  audioUrl: string | null
   duration: number // seconds
   cover: string // CDN URL; empty → generated poster
   genre?: string // primary genre display name

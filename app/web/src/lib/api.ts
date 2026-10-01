@@ -11,9 +11,6 @@ export const DEFAULT_ARTIST_AVATAR =
   import.meta.env.VITE_DEFAULT_ARTIST_AVATAR ?? ''
 
 export function mapTrack(api: ApiTrack): Track {
-  // The backend substitutes its own default image when the admin hasn't
-  // uploaded one — detect it by storage key and let Cover show the
-  // generated poster instead.
   return {
     id: api.id,
     title: api.title,
@@ -23,6 +20,7 @@ export function mapTrack(api: ApiTrack): Track {
         ? ''
         : (api.artist.avatar_url ?? ''),
     duration: api.duration_seconds,
+    audioUrl: api.audio_url,
     cover: api.cover === DEFAULT_TRACK_COVER ? '' : (api.cover_url ?? ''),
     genre: api.genres[0]?.name,
   }

@@ -2,7 +2,7 @@
 export function formatDuration(seconds: number): string {
   const minutes = Math.floor(seconds / 60)
   const rest = seconds % 60
-  return `${minutes}:${String(rest).padStart(2, '0')}`
+  return `${minutes}:${parseInt(String(rest).padStart(2, '0'))}`
 }
 
 /** URL-safe slug: "Drum & Bass" -> "drum-and-bass". */

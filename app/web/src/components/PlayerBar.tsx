@@ -20,9 +20,62 @@ import Cover from './Cover'
 interface PlayerBarProps {
   track: Track | null
   playing: boolean
+  /** Playback position in seconds (from the audio element). */
+  progress: number
+  /** Track duration in seconds — the element's metadata once loaded. */
+  duration: number
   onToggle: () => void
+  onSeek: (seconds: number) => void
   onNext: () => void
   onPrev: () => void
+}
+
+/** Click- and keyboard-seekable progress bar. */
+function Seekbar({
+  progress,
+  duration,
+  onSeek,
+}: Pick<PlayerBarProps, 'progress' | 'duration' | 'onSeek'>) {
+  const pct = duration > 0 ? Math.min(100, (progress / duration) * 100) : 0
+
+  const seekToRatio = (ratio: number) => {
+    if (duration <= 0) return
+    onSeek(Math.min(1, Math.max(0, ratio)) * duration)
+  }
+
+  const onClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect()
+    seekToRatio((e.clientX - rect.left) / rect.width)
+  }
+
+  const onKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === 'ArrowRight') {
+      e.preventDefault()
+      seekToRatio((progress + 5) / duration)
+    } else if (e.key === 'ArrowLeft') {
+      e.preventDefault()
+      seekToRatio((progress - 5) / duration)
+    }
+  }
+
+  return (
+    <div
+      className='h-1 flex-1 cursor-pointer rounded-[9px] bg-[#454b44]'
+      onClick={onClick}
+      onKeyDown={onKeyDown}
+      role='slider'
+      aria-label='Seek'
+      aria-valuemin={0}
+      aria-valuemax={Math.round(duration)}
+      aria-valuenow={Math.round(progress)}
+      tabIndex={0}
+    >
+      <i
+        className='bg-accent block h-full rounded-[inherit]'
+        style={{ width: `${pct}%` }}
+      />
+    </div>
+  )
 }
 
 /**
@@ -63,12 +116,17 @@ const ghostButton =
 export default function PlayerBar({
   track,
   playing,
+  progress,
+  duration,
   onToggle,
+  onSeek,
   onNext,
   onPrev,
 }: PlayerBarProps) {
   const [liked, setLiked] = useState(false)
   const [expanded, setExpanded] = useState(false)
+  const progressPct =
+    duration > 0 ? Math.min(100, (progress / duration) * 100) : 0
 
   return (
     <>
@@ -83,7 +141,7 @@ export default function PlayerBar({
         >
           <i
             className='bg-accent block h-full'
-            style={{ width: playing ? '42%' : '30%' }}
+            style={{ width: `${progressPct}%` }}
           />
         </div>
 
@@ -158,14 +216,9 @@ export default function PlayerBar({
             </button>
           </div>
           <div className='mt-3 flex items-center gap-3 text-sm text-[#9aa39a]'>
-            <span>1:24</span>
-            <div className='h-1 flex-1 rounded-[9px] bg-[#454b44]'>
-              <i
-                className='bg-accent block h-full rounded-[inherit]'
-                style={{ width: playing ? '42%' : '30%' }}
-              />
-            </div>
-            <span>{formatDuration(track?.duration || 0)}</span>
+            <span>{formatDuration(progress)}</span>
+            <Seekbar progress={progress} duration={duration} onSeek={onSeek} />
+            <span>{formatDuration(duration)}</span>
           </div>
         </div>
 
@@ -295,14 +348,13 @@ export default function PlayerBar({
             </div>
 
             <div className='mt-6 flex items-center gap-3 text-sm text-[#9aa39a]'>
-              <span>1:24</span>
-              <div className='h-1 flex-1 rounded-[9px] bg-[#454b44]'>
-                <i
-                  className='bg-accent block h-full rounded-[inherit]'
-                  style={{ width: playing ? '42%' : '30%' }}
-                />
-              </div>
-              <span>{formatDuration(track?.duration || 0)}</span>
+              <span>{formatDuration(progress)}</span>
+              <Seekbar
+                progress={progress}
+                duration={duration}
+                onSeek={onSeek}
+              />
+              <span>{formatDuration(duration)}</span>
             </div>
 
             <div className='mt-5 flex items-center justify-center gap-6 text-[#889088]'>
