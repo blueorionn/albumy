@@ -13,6 +13,7 @@ interface HomePageProps {
 
 export default function HomePage({ onPlayHero, onPlayTrack }: HomePageProps) {
   const { tracks, loading, error } = useTracks()
+  const MAX_TRACKS_ON_HOME_PAGE = 8
 
   return (
     <>
@@ -27,7 +28,10 @@ export default function HomePage({ onPlayHero, onPlayTrack }: HomePageProps) {
           No tracks in the catalog yet.
         </p>
       ) : (
-        <TrackGrid tracks={tracks} onPlay={onPlayTrack} />
+        <TrackGrid
+          tracks={tracks?.slice(0, MAX_TRACKS_ON_HOME_PAGE)}
+          onPlay={onPlayTrack}
+        />
       )}
 
       <div className='mb-11.25 grid grid-cols-2 gap-[clamp(30px,5vw,44px)] max-lg:grid-cols-1'>
