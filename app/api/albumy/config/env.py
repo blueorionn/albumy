@@ -5,59 +5,6 @@ import re
 from urllib.parse import urlparse
 
 
-def parse_postgres_database_url():
-    """Build a Django database setting from the ``DB_CONNECTION_URL`` env variable."""
-
-    url = os.environ.get("DB_CONNECTION_URL", "").strip()
-
-    if not url:
-        raise ValueError(
-            "The URL connection string cannot be empty or contain only whitespace."
-        )
-
-    try:
-        conn = urlparse(url)
-
-        # Validate database type
-        if conn.scheme not in ("postgresql", "postgres"):
-            raise ValueError(
-                f"Unsupported database URL scheme: '{conn.scheme}'. "
-                "Expected 'postgresql://' or 'postgres://'."
-            )
-
-        # Validate required PostgreSQL components
-        if not conn.path or conn.path == "/":
-            raise ValueError(
-                "PostgreSQL database name is missing from DB_CONNECTION_URL."
-            )
-
-        if not conn.hostname:
-            raise ValueError("PostgreSQL host is missing from DB_CONNECTION_URL.")
-
-        return {
-            "ENGINE": "django.db.backends.postgresql",
-            "NAME": conn.path.lstrip("/"),
-            "USER": conn.username,
-            "PASSWORD": conn.password,
-            "HOST": conn.hostname,
-            "PORT": conn.port,
-            "OPTIONS": {
-                "sslmode": (
-                    "disable"
-                    if os.getenv("PROJECT_ENVIRONMENT", "production").lower()
-                    == "development"
-                    else "required"
-                ),
-            },
-            "DISABLE_SERVER_SIDE_CURSORS": True,
-            "CONN_HEALTH_CHECKS": True,
-        }
-    except ValueError:
-        raise
-    except Exception as e:
-        raise ValueError(f"Invalid database connection URL: {e}") from e
-
-
 def is_valid_hostname(hostname: str) -> bool:
     """Check whether ``hostname`` is a valid hostname or subdomain wildcard."""
 
