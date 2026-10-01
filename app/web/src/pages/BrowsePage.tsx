@@ -1,7 +1,7 @@
 import { slugify } from '../lib/format'
 import { cx } from '../lib/cx'
 import { chip, eyebrow, sectionHeading, sectionTitle } from '../lib/ui'
-import { TRACKS } from '../data/catalog'
+import { useTracks } from '../hooks/useTracks'
 import type { Track } from '../types'
 import TrackList from '../components/TrackList'
 
@@ -13,19 +13,21 @@ interface BrowsePageProps {
 
 /** Browse page: genre chips above a numbered list of every track. */
 export default function BrowsePage({ genreSlug, onPlay }: BrowsePageProps) {
+  const { tracks, loading, error } = useTracks()
+
   const genres = [
     ...new Set(
-      TRACKS.map((track) => track.genre).filter((genre): genre is string =>
-        Boolean(genre)
-      )
+      tracks
+        .map((track) => track.genre)
+        .filter((genre): genre is string => Boolean(genre))
     ),
   ].sort((a, b) => a.localeCompare(b))
 
   const activeGenre =
     genres.find((genre) => slugify(genre) === genreSlug) ?? null
   const visible = activeGenre
-    ? TRACKS.filter((track) => track.genre === activeGenre)
-    : TRACKS
+    ? tracks.filter((track) => track.genre === activeGenre)
+    : tracks
 
   return (
     <section className='mb-11.25'>
@@ -64,7 +66,17 @@ export default function BrowsePage({ genreSlug, onPlay }: BrowsePageProps) {
         ))}
       </div>
 
-      <TrackList tracks={visible} onPlay={onPlay} />
+      {loading ? (
+        <p className='text-muted-2 text-sm'>Loading tracks…</p>
+      ) : error ? (
+        <p className='text-sm text-[#e0685b]'>{error}</p>
+      ) : visible.length === 0 ? (
+        <p className='text-muted-2 text-sm'>
+          No tracks here yet{activeGenre ? ` for ${activeGenre}` : ''}.
+        </p>
+      ) : (
+        <TrackList tracks={visible} onPlay={onPlay} />
+      )}
     </section>
   )
 }

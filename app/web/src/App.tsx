@@ -6,17 +6,17 @@ import RecentlyPlayedPage from './pages/RecentlyPlayedPage'
 import SearchPage from './pages/SearchPage'
 import Sidebar from './components/Sidebar'
 import TopBar from './components/TopBar'
-import { TRACKS } from './data/catalog'
 import { useHashRoute } from './hooks/useHashRoute'
+import { cx } from './lib/cx'
 import type { Track } from './types'
 import HomePage from './pages/HomePage'
 
 export default function App() {
   const route = useHashRoute()
   const [sidebarOpen, setSidebarOpen] = useState(false)
-  const [queue, setQueue] = useState<Track[]>(TRACKS)
+  const [queue, setQueue] = useState<Track[]>([])
   const [queueIndex, setQueueIndex] = useState(0)
-  const [current, setCurrent] = useState<Track>(TRACKS[0])
+  const [current, setCurrent] = useState<Track | null>(null)
   const [playing, setPlaying] = useState(false)
 
   /** Play a track, optionally within a list that becomes the queue. */
@@ -55,7 +55,13 @@ export default function App() {
   }
 
   return (
-    <div className='bg-bg min-h-screen pb-28 pl-[clamp(190px,20vw,244px)] max-sm:pb-22 max-sm:pl-0'>
+    <div
+      className={cx(
+        'bg-bg min-h-screen pl-[clamp(190px,20vw,244px)] max-sm:pl-0',
+        // Reserve space for the fixed player only while it's visible
+        current && 'pb-28 max-sm:pb-22'
+      )}
+    >
       <Sidebar
         page={route.name}
         open={sidebarOpen}
@@ -85,13 +91,15 @@ export default function App() {
         </div>
       </section>
 
-      <PlayerBar
-        track={current}
-        playing={playing}
-        onToggle={() => setPlaying((v) => !v)}
-        onNext={playNext}
-        onPrev={playPrev}
-      />
+      {current && (
+        <PlayerBar
+          track={current}
+          playing={playing}
+          onToggle={() => setPlaying((v) => !v)}
+          onNext={playNext}
+          onPrev={playPrev}
+        />
+      )}
     </div>
   )
 }

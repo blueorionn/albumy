@@ -18,7 +18,7 @@ import type { Track } from '../types'
 import Cover from './Cover'
 
 interface PlayerBarProps {
-  track: Track
+  track: Track | null
   playing: boolean
   onToggle: () => void
   onNext: () => void
@@ -96,19 +96,19 @@ export default function PlayerBar({
             onClick={() => setExpanded(true)}
           >
             <Cover
-              cover={track.cover}
-              title={track.title}
-              artist={track.artist}
+              cover={track?.cover}
+              title={track?.title}
+              artist={track?.artist}
               className='block size-12 rounded-md'
               compact
             />
           </button>
           <div className='flex min-w-0 flex-col gap-1.25'>
             <strong className='truncate text-xs font-bold'>
-              {track.title}
+              {track?.title}
             </strong>
             <span className='truncate text-[11px] text-[#7c847c]'>
-              {track.artist}
+              {track?.artist}
             </span>
           </div>
           <button
@@ -165,7 +165,7 @@ export default function PlayerBar({
                 style={{ width: playing ? '42%' : '30%' }}
               />
             </div>
-            <span>{formatDuration(track.duration)}</span>
+            <span>{formatDuration(track?.duration || 0)}</span>
           </div>
         </div>
 
@@ -193,18 +193,18 @@ export default function PlayerBar({
             aria-label='Open player'
           >
             <Cover
-              cover={track.cover}
-              title={track.title}
-              artist={track.artist}
+              cover={track?.cover}
+              title={track?.title}
+              artist={track?.artist}
               className='block size-11 shrink-0 rounded-md'
               compact
             />
             <span className='flex min-w-0 flex-col gap-0.5'>
               <strong className='truncate text-xs font-bold'>
-                {track.title}
+                {track?.title}
               </strong>
               <span className='truncate text-[11px] text-[#7c847c]'>
-                {track.artist}
+                {track?.artist}
               </span>
             </span>
           </button>
@@ -263,9 +263,9 @@ export default function PlayerBar({
 
             <div className='flex flex-1 items-center justify-center py-6'>
               <Cover
-                cover={track.cover}
-                title={track.title}
-                artist={track.artist}
+                cover={track?.cover}
+                title={track?.title}
+                artist={track?.artist}
                 className='aspect-square w-[min(78vw,320px,45vh)] rounded-xl'
               />
             </div>
@@ -273,10 +273,10 @@ export default function PlayerBar({
             <div className='flex items-center gap-3'>
               <div className='min-w-0 flex-1'>
                 <strong className='block truncate text-lg font-bold'>
-                  {track.title}
+                  {track?.title}
                 </strong>
                 <span className='mt-1 block truncate text-sm text-[#7c847c]'>
-                  {track.artist}
+                  {track?.artist}
                 </span>
               </div>
               <button
@@ -302,7 +302,7 @@ export default function PlayerBar({
                   style={{ width: playing ? '42%' : '30%' }}
                 />
               </div>
-              <span>{formatDuration(track.duration)}</span>
+              <span>{formatDuration(track?.duration || 0)}</span>
             </div>
 
             <div className='mt-5 flex items-center justify-center gap-6 text-[#889088]'>

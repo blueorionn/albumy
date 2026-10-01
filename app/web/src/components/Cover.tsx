@@ -1,9 +1,9 @@
 import Poster from './Poster'
 
 interface CoverProps {
-  cover: string
-  title: string
-  artist: string
+  cover: string | undefined
+  title: string | undefined
+  artist: string | undefined
   className?: string
   /** Small sizes (player thumbnail, list rows) drop the poster label. */
   compact?: boolean
@@ -34,8 +34,8 @@ export default function Cover({
 
   return (
     <Poster
-      title={title}
-      artist={artist}
+      title={title ?? ''}
+      artist={artist ?? ''}
       className={className}
       compact={compact}
     />
