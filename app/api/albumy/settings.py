@@ -93,9 +93,9 @@ USE_I18N = True
 USE_TZ = True
 
 
-# Media CDN (S3 + CloudFront)
+# Media CDN
 # Models store bare storage keys (no path); URLs are composed from these.
-AWS_CLOUDFRONT_DOMAIN = os.environ.get("AWS_CLOUDFRONT_DOMAIN", "")
+CDN_DOMAIN = os.environ.get("CDN_DOMAIN", "")
 
 MEDIA_PREFIXES = {
     "artist_avatar": "artists/covers",
