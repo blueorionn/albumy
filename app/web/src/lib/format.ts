@@ -1,8 +1,10 @@
 /** Format a duration in seconds as `m:ss` (e.g. 222 -> "3:42"). */
 export function formatDuration(seconds: number): string {
-  const minutes = Math.floor(seconds / 60)
-  const rest = seconds % 60
-  return `${minutes}:${parseInt(String(rest).padStart(2, '0'))}`
+  const totalSeconds = Math.floor(seconds)
+  const minutes = Math.floor(totalSeconds / 60)
+  const remainingSeconds = totalSeconds % 60
+
+  return `${minutes}:${String(remainingSeconds).padStart(2, '0')}`
 }
 
 /** URL-safe slug: "Drum & Bass" -> "drum-and-bass". */
